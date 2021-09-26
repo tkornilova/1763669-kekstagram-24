@@ -17,3 +17,18 @@ function randomIntegerNumber (min, max) {
 }
 
 randomIntegerNumber(4, 15);
+
+
+// Проверка длины комментария
+
+const maxLength = 140;
+let userCommentLength;
+let strokeNumber;
+
+function commentLength (strokeNumber, maxLength) {
+  if (maxLength > userCommentLength) {
+    console.log('Длина комментария превышает максимально допустимую длину');
+  }
+}
+
+commentLength (5, 40);
