@@ -20,10 +20,7 @@ randomIntegerNumber(4, 15);
 
 // Проверка длины комментария
 
-
-const maxLength = 140;
 let userCommentLength;
-let strokeNumber;
 
 function commentLength (strokeNumber, maxLength) {
   if (maxLength > userCommentLength) {
@@ -31,4 +28,4 @@ function commentLength (strokeNumber, maxLength) {
   }
 }
 
-commentLength (strokeNumber, maxLength);
+commentLength (30, 140);
