@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Татьяна](https://up.htmlacademy.ru/javascript/24/user/1763669).
-* Наставник: [Александр Григорьев](https://htmlacademy.ru/profile/fuckhtml).
+* Наставник: [Михаил Карямин](https://htmlacademy.ru/profile/id959581).
 
 ---
 
