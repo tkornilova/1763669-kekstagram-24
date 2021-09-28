@@ -4,10 +4,9 @@
 function randomIntegerNumber (min, max) {
   if (min < 0 || max < 0) {
     return('Минимальное и максимальные значения должны быть больше 0');
-
   }
 
-  if (min > max) {
+  if (min >= max) {
     return('Минимальное значение должно быть меньше максимального');
   }
 
@@ -20,12 +19,11 @@ randomIntegerNumber(4, 15);
 
 // Проверка длины комментария
 
-let userCommentLength;
-
-function commentLength (strokeNumber, maxLength) {
-  if (maxLength > userCommentLength) {
+function commentLength (userCommentLength, maxLength) {
+  if (userCommentLength > maxLength) {
     return('Длина комментария превышает максимально допустимую длину');
   }
+  return('Длина комментария не превышает максимально допустимую длину');
 }
 
 commentLength (30, 140);
