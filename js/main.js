@@ -21,9 +21,9 @@ randomIntegerNumber(4, 15);
 
 function commentLength (userCommentLength, maxLength) {
   if (userCommentLength > maxLength) {
-    return('Длина комментария превышает максимально допустимую длину');
+    return false;
   }
-  return('Длина комментария не превышает максимально допустимую длину');
+  return true;
 }
 
 commentLength (30, 140);
