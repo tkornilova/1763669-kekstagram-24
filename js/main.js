@@ -121,12 +121,10 @@ function photoDescription () {
 
 const getPhotoDescriptions = () => {
   const photoDescriptionsWithoutId = Array.from({length: PHOTO_DESCRIPTION_COUNT}, photoDescription);
-  const photoDescriptions = photoDescriptionsWithoutId.map((el, index) => {
-    return {
-      ...el,
-      idPhotoDescription: index + 1,
-    };
-  });
+  const photoDescriptions = photoDescriptionsWithoutId.map((el, index) => ({
+    ...el,
+    idPhotoDescription: index + 1,
+  }));
 
   return photoDescriptions;
 
