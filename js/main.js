@@ -30,7 +30,7 @@ commentLength (30, 140);
 
 // Не уверена, сколько должно быть подписей к фото. В массиве ниже их 25
 
-const PHOTO_CAPTION = [
+const PHOTO_CAPTIONS = [
   'Это моя жизнь, и мне так повезло ее жить.',
   'В любой ситуации всегда улыбайтесь.',
   'Не сомневайся, просто делай и осуществи мечту.',
@@ -61,7 +61,7 @@ const PHOTO_CAPTION = [
 // В задании написано, что нужно выбрать одно или два сообщения из массива снизу. Если я сделаю один элемент массива
 // пустым, будет ли это считаться? То есть если он выберет пустую строчку и будет как будто одно.
 
-const MESSAGE = [
+const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -71,7 +71,7 @@ const MESSAGE = [
   '',
 ];
 
-const NAME = [
+const NAMES = [
   'Семён',
   'Александра',
   'Марк',
@@ -103,22 +103,33 @@ const PHOTO_DESCRIPTION_COUNT = 25;
 function comment () {
   return {
     // Не знаю пределы для id для комментария
-    idComment: _.uniqueId(1, 1000),
+    idComment: _.uniqueId(),
     avatar: `img/avatar-${randomIntegerNumber(1,6)}.svg`,
-    message: MESSAGE[randomIntegerNumber(1, MESSAGE.length-1)],
-    name: NAME[randomIntegerNumber(1, NAME.length-1)],
+    message: MESSAGES[randomIntegerNumber(1, MESSAGES.length-1)],
+    name: NAMES[randomIntegerNumber(1, NAMES.length-1)],
   };
 }
 
 function photoDescription () {
   return {
-    idPhotoDescription: _.uniqueId(1, PHOTO_DESCRIPTION_COUNT),
     url: `photos/${_.random(1, PHOTO_DESCRIPTION_COUNT)}.jpg`,
-    description: PHOTO_CAPTION[randomIntegerNumber(0, PHOTO_CAPTION.length - 1)],
+    description: PHOTO_CAPTIONS[randomIntegerNumber(0, PHOTO_CAPTIONS.length - 1)],
     likes: randomIntegerNumber(15, 200),
     comments: comment(),
   };
 }
 
-const getPhotoDescriptionsArray = () => Array.from({length: PHOTO_DESCRIPTION_COUNT}, photoDescription);
-getPhotoDescriptionsArray();
+const getPhotoDescriptions = () => {
+  const photoDescriptionsWithoutId = Array.from({length: PHOTO_DESCRIPTION_COUNT}, photoDescription);
+  const photoDescriptions = photoDescriptionsWithoutId.map((el, index) => {
+    return {
+      ...el,
+      idPhotoDescription: index + 1,
+    };
+  });
+
+  return photoDescriptions;
+
+};
+
+getPhotoDescriptions();
