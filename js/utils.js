@@ -1,6 +1,6 @@
 // Найти случайное число из диапазона
 
-function randomIntegerNumber (min, max) {
+export const getRandomIntegerNumber = (min, max) => {
   if (min < 0 || max < 0) {
     return('Минимальное и максимальные значения должны быть больше 0');
   }
@@ -11,21 +11,13 @@ function randomIntegerNumber (min, max) {
 
   const rand = min + Math.random() * (max + 1 - min);
   return(Math.floor(rand));
-}
-
-randomIntegerNumber(4, 15);
-
-export {randomIntegerNumber};
+};
 
 // Сравнить длину комментария с заданной
 
-function commentLength (userCommentLength, maxLength) {
+export const compareCommentLength = (userCommentLength, maxLength) => {
   if (userCommentLength > maxLength) {
     return false;
   }
   return true;
-}
-
-commentLength (30, 140);
-
-export {commentLength};
+};

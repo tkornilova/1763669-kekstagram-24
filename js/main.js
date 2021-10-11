@@ -1,3 +1,4 @@
-import './constants';
-import './data';
-import './scripts';
+import './consts.js';
+import {getPhotoDescriptions} from './data.js';
+
+getPhotoDescriptions();
