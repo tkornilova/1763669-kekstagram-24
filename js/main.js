@@ -28,7 +28,7 @@ function commentLength (userCommentLength, maxLength) {
 
 commentLength (30, 140);
 
-// Не уверена, сколько должно быть подписей к фото. В массиве ниже их 25
+// Вывод массива из объектов
 
 const PHOTO_CAPTIONS = [
   'Это моя жизнь, и мне так повезло ее жить.',
@@ -57,9 +57,6 @@ const PHOTO_CAPTIONS = [
   'Коллекционирую эмоции.',
   'Вперед к новым вершинам.',
 ];
-
-// В задании написано, что нужно выбрать одно или два сообщения из массива снизу. Если я сделаю один элемент массива
-// пустым, будет ли это считаться? То есть если он выберет пустую строчку и будет как будто одно.
 
 const MESSAGES = [
   'Всё отлично!',
@@ -100,9 +97,8 @@ const NAMES = [
 
 const PHOTO_DESCRIPTION_COUNT = 25;
 
-function comment () {
+function getComment () {
   return {
-    // Не знаю пределы для id для комментария
     idComment: _.uniqueId(),
     avatar: `img/avatar-${randomIntegerNumber(1,6)}.svg`,
     message: MESSAGES[randomIntegerNumber(1, MESSAGES.length-1)],
@@ -110,17 +106,17 @@ function comment () {
   };
 }
 
-function photoDescription () {
+function getPhotoDescriptionObj () {
   return {
     url: `photos/${_.random(1, PHOTO_DESCRIPTION_COUNT)}.jpg`,
     description: PHOTO_CAPTIONS[randomIntegerNumber(0, PHOTO_CAPTIONS.length - 1)],
     likes: randomIntegerNumber(15, 200),
-    comments: comment(),
+    comments: getComment(),
   };
 }
 
 const getPhotoDescriptions = () => {
-  const photoDescriptionsWithoutId = Array.from({length: PHOTO_DESCRIPTION_COUNT}, photoDescription);
+  const photoDescriptionsWithoutId = Array.from({length: PHOTO_DESCRIPTION_COUNT}, getPhotoDescriptionObj);
   const photoDescriptions = photoDescriptionsWithoutId.map((el, index) => ({
     ...el,
     idPhotoDescription: index + 1,
