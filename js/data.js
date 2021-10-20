@@ -66,14 +66,14 @@ const NAMES = [
   'Андрей',
 ];
 
-const getComment = () => ({
-  idComment: _.uniqueId(),
+const getComment = (id) => ({
+  id,
   avatar: `img/avatar-${getRandomIntegerNumber(1,6)}.svg`,
   message: MESSAGES[getRandomIntegerNumber(1, MESSAGES.length-1)],
   name: NAMES[getRandomIntegerNumber(1, NAMES.length-1)],
 });
 
-const getComments = () => Array.from({length: getRandomIntegerNumber(2, 10)}, () => getComment());
+const getComments = () => Array.from({length: getRandomIntegerNumber(2, 10)}, (_el, i) => getComment(i + 1));
 
 const getPhotoDescriptionObj = (id) => ({
   id,
