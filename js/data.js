@@ -73,14 +73,14 @@ const getComment = () => ({
   name: NAMES[getRandomIntegerNumber(1, NAMES.length-1)],
 });
 
-const comments = Array.from({length: getRandomIntegerNumber(2, 10)}, () => getComment());
+const getComments = () => Array.from({length: getRandomIntegerNumber(2, 10)}, () => getComment());
 
 const getPhotoDescriptionObj = (id) => ({
   id,
   url: `photos/${_.random(1, PHOTO_DESCRIPTION_COUNT)}.jpg`,
   description: PHOTO_CAPTIONS[getRandomIntegerNumber(0, PHOTO_CAPTIONS.length - 1)],
   likes: getRandomIntegerNumber(15, 200),
-  comments: comments,
+  comments: getComments(),
 });
 
 export const photoDescriptions = Array.from({length: PHOTO_DESCRIPTION_COUNT}, (_el, i) => getPhotoDescriptionObj(i + 1));
