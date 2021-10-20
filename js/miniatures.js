@@ -1,4 +1,4 @@
-import {getPhotoDescriptions} from './data.js';
+import {photoDescriptions} from './data.js';
 
 // Находим блок, куда будем вставлять шаблон
 const userMiniatureElement = document.querySelector('.pictures');
@@ -7,7 +7,7 @@ const userMiniatureElement = document.querySelector('.pictures');
 const userMiniatureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 // Создаем массив, испозуя функцию написанную ранее
-const userMiniatures = getPhotoDescriptions();
+const userMiniatures = photoDescriptions;
 
 // Создаем фрагмент, куда впишем все элементы массива
 
@@ -21,7 +21,7 @@ userMiniatures.forEach ((miniature) => {
   miniatureElement.querySelector('.picture__img').src = miniature.url;
 
   // Дбавляем комментарий
-  miniatureElement.querySelector('.picture__comments').textContent = miniature.comments;
+  miniatureElement.querySelector('.picture__comments').textContent = miniature.comments.length;
 
   // Дбавляем лайки
   miniatureElement.querySelector('.picture__likes').textContent = miniature.likes;
@@ -33,5 +33,3 @@ userMiniatures.forEach ((miniature) => {
 
 // Добавляем фрагмент в разметку
 userMiniatureElement.appendChild(userMiniaturesFragment);
-
-

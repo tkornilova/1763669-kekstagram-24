@@ -37,7 +37,6 @@ const MESSAGES = [
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
-  '',
 ];
 
 const NAMES = [
@@ -74,20 +73,14 @@ const getComment = () => ({
   name: NAMES[getRandomIntegerNumber(1, NAMES.length-1)],
 });
 
-const getPhotoDescriptionObj = () => ({
+const comments = Array.from({length: getRandomIntegerNumber(2, 10)}, () => getComment());
+
+const getPhotoDescriptionObj = (id) => ({
+  id,
   url: `photos/${_.random(1, PHOTO_DESCRIPTION_COUNT)}.jpg`,
   description: PHOTO_CAPTIONS[getRandomIntegerNumber(0, PHOTO_CAPTIONS.length - 1)],
   likes: getRandomIntegerNumber(15, 200),
-  comments: getComment(),
+  comments: comments,
 });
 
-export const getPhotoDescriptions = () => {
-  const photoDescriptionsWithoutId = Array.from({length: PHOTO_DESCRIPTION_COUNT}, getPhotoDescriptionObj);
-  const photoDescriptions = photoDescriptionsWithoutId.map((el, index) => ({
-    ...el,
-    idPhotoDescription: index + 1,
-  }));
-
-  return photoDescriptions;
-
-};
+export const photoDescriptions = Array.from({length: PHOTO_DESCRIPTION_COUNT}, (_el, i) => getPhotoDescriptionObj(i + 1));
