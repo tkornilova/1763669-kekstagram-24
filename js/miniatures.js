@@ -10,7 +10,6 @@ const userMiniatureTemplate = document.querySelector('#picture').content.querySe
 const userMiniatures = photoDescriptions;
 
 // Создаем фрагмент, куда впишем все элементы массива
-
 const userMiniaturesFragment = document.createDocumentFragment();
 
 userMiniatures.forEach ((miniature) => {
