@@ -74,6 +74,7 @@ const getComment = (id) => ({
 });
 
 const getComments = () => Array.from({length: getRandomIntegerNumber(2, 10)}, (_el, i) => getComment(i + 1));
+export const comments = Array.from({length: getRandomIntegerNumber(2, 10)}, (_el, i) => getComment(i + 1));
 
 const getPhotoDescriptionObj = (id) => ({
   id,

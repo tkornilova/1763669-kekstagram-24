@@ -1,8 +1,24 @@
 import {photoDescriptions} from './data.js';
+import {comments} from './data.js';
 
 // Открыть full picture
 const fullPicture = document.querySelector('.big-picture');
 fullPicture.classList.remove('hidden');
+
+// Создать комментарий и вствить в разметку
+const userCommentsList = document.querySelector('.social__comments');
+const userCommentsTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
+const userCommentsFragment = document.createDocumentFragment();
+
+comments.forEach ((comment) => {
+  const userCommentElement = userCommentsTemplate.cloneNode(true);
+  userCommentsTemplate.querySelector('.social__picture').src = comment.avatar;
+  userCommentsTemplate.querySelector('.social__picture').alt = comment.name;
+  userCommentsTemplate.querySelector('.social__text').textContent = comment.message;
+  userCommentsFragment.appendChild(userCommentElement);
+});
+
+userCommentsList.appendChild(userCommentsFragment);
 
 // Добавить элементы к full picture
 photoDescriptions.forEach ((picture) => {
@@ -24,8 +40,9 @@ body.classList.add('modal-open');
 
 
 // Закрывание full picture с помощью ESC
-document.addEventListener('keypress', (evt) => {
-  if (evt.keyCode === 27) {
+document.addEventListener('keydown', (evt) => {
+  if (evt.key ===  'Escape') {
     fullPicture.classList.add('hidden');
+    body.classList.remove('modal-open');
   }
 });
