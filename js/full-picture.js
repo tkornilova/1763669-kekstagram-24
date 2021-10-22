@@ -1,9 +1,14 @@
 import {photoDescriptions} from './data.js';
 import {comments} from './data.js';
 
-// Открыть full picture
 const fullPicture = document.querySelector('.big-picture');
-fullPicture.classList.remove('hidden');
+const userMiniature = document.querySelector('.picture');
+
+// Открытие окна
+userMiniature.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  fullPicture.classList.remove('hidden');
+});
 
 // Создать комментарий и вствить в разметку
 const userCommentsList = document.querySelector('.social__comments');
@@ -40,6 +45,13 @@ body.classList.add('modal-open');
 
 
 // Закрывание full picture с помощью ESC
+const buttonClose = document.querySelector('.big-picture__cancel');
+
+buttonClose.addEventListener('click', () => {
+  fullPicture.classList.add('hidden');
+  body.classList.remove('modal-open');
+});
+
 document.addEventListener('keydown', (evt) => {
   if (evt.key ===  'Escape') {
     fullPicture.classList.add('hidden');
