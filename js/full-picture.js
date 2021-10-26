@@ -34,13 +34,12 @@ const addComment = (comments) => {
 };
 
 // Добавить элементы к full picture
-
 export const renderFullPicture = (picture) => {
   fullPicture.querySelector('.big-picture__img img').src = picture.url;
   fullPicture.querySelector('.likes-count').textContent = picture.likes;
   fullPicture.querySelector('.comments-count').textContent = picture.comments.length;
   fullPicture.querySelector('.social__caption').textContent = picture.description;
-  addComment();
+  addComment(picture.comments);
 
   // Скрыть счетчик комментариев и загрузку новых комментариев, остановить скролл
   const commentCount = fullPicture.querySelector('.social__comment-count');
