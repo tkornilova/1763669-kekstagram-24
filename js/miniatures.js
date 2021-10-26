@@ -1,4 +1,4 @@
-import {photoDescriptions} from './data.js';
+import { photoDescriptions } from './data.js';
 
 const userMiniatureElement = document.querySelector('.pictures');
 const userMiniatureTemplate = document.querySelector('#picture').content.querySelector('.picture');
