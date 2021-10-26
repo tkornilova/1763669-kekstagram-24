@@ -1,5 +1,3 @@
-import {MOCK_CURRENT_PICTURE} from './data.js';
-
 const fullPicture = document.querySelector('.big-picture');
 
 // Закрывание full picture с помощью ESC
@@ -42,15 +40,15 @@ export const renderFullPicture = (picture) => {
   fullPicture.querySelector('.likes-count').textContent = picture.likes;
   fullPicture.querySelector('.comments-count').textContent = picture.comments.length;
   fullPicture.querySelector('.social__caption').textContent = picture.description;
-  addComment(MOCK_CURRENT_PICTURE.comments);
+  addComment();
+
+  // Скрыть счетчик комментариев и загрузку новых комментариев, остановить скролл
+  const commentCount = fullPicture.querySelector('.social__comment-count');
+  commentCount.classList.add('hidden');
+
+  const newCommentAdding = fullPicture.querySelector('.comments-loader');
+  newCommentAdding.classList.add('hidden');
+
+  // Открытие окна full picture
+  fullPicture.classList.remove('hidden');
 };
-
-// Скрыть счетчик комментариев и загрузку новых комментариев, остановить скролл
-const commentCount = fullPicture.querySelector('.social__comment-count');
-commentCount.classList.add('hidden');
-
-const newCommentAdding = fullPicture.querySelector('.comments-loader');
-newCommentAdding.classList.add('hidden');
-
-// Открытие окна full picture
-fullPicture.classList.remove('hidden');
