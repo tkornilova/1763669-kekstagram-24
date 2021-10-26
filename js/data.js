@@ -1,4 +1,4 @@
-import {getRandomIntegerNumber} from './utils.js';
+import { getRandomIntegerNumber } from './utils.js';
 
 const PHOTO_DESCRIPTION_COUNT = 25;
 
@@ -84,3 +84,4 @@ const getPhotoDescriptionObj = (id) => ({
 });
 
 export const photoDescriptions = Array.from({length: PHOTO_DESCRIPTION_COUNT}, (_el, i) => getPhotoDescriptionObj(i + 1));
+export const MOCK_CURRENT_PICTURE = photoDescriptions[0];
