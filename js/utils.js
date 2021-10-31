@@ -36,7 +36,9 @@ export const openForm = (buttonName, formName) => {
 
 export const closeFormWithClick = (buttonName, formName) => {
   const body = document.querySelector('body');
-  buttonName.addEventListener('click', () => {
+  buttonName.addEventListener('click', (evt) => {
+    evt.stopPropagation;
+    evt.preventDefault;
     formName.classList.add('hidden');
     body.classList.remove('modal-open');
   });
@@ -48,6 +50,8 @@ export const closeFormWithEsc = (formName) => {
   const body = document.querySelector('body');
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
+      evt.stopPropagation;
+      evt.preventDefault;
       formName.classList.add('hidden');
       body.classList.remove('modal-open');
     }
