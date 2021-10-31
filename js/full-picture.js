@@ -1,20 +1,12 @@
+import { closeFormWithEsc } from './utils.js';
+import { closeFormWithClick } from './utils.js';
 const fullPicture = document.querySelector('.big-picture');
 
 // Закрывание full picture с помощью ESC
-const body = document.querySelector('body');
 const buttonClose = document.querySelector('.big-picture__cancel');
 
-buttonClose.addEventListener('click', () => {
-  fullPicture.classList.add('hidden');
-  body.classList.remove('modal-open');
-});
-
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    fullPicture.classList.add('hidden');
-    body.classList.remove('modal-open');
-  }
-});
+closeFormWithClick(buttonClose, fullPicture);
+closeFormWithEsc(fullPicture);
 
 // Создать комментарий и вствить в разметку
 const addComment = (comments) => {

@@ -21,3 +21,35 @@ export const compareCommentLength = (userCommentLength, maxLength) => {
   }
   return true;
 };
+
+// Открыть форму
+
+export const openForm = (buttonName, formName) => {
+  const body = document.querySelector('body');
+  buttonName.addEventListener('click', () => {
+    formName.classList.remove('hidden');
+    body.classList.add('modal-open');
+  });
+};
+
+// Закрыть форму по клику
+
+export const closeFormWithClick = (buttonName, formName) => {
+  const body = document.querySelector('body');
+  buttonName.addEventListener('click', () => {
+    formName.classList.add('hidden');
+    body.classList.remove('modal-open');
+  });
+};
+
+// Закрыть форму с помощью ESC
+
+export const closeFormWithEsc = (formName) => {
+  const body = document.querySelector('body');
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      formName.classList.add('hidden');
+      body.classList.remove('modal-open');
+    }
+  });
+};
