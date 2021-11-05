@@ -22,12 +22,20 @@ export const compareCommentLength = (userCommentLength, maxLength) => {
   return true;
 };
 
+export const removeHiddenClass = (el) => {
+  el.classList.remove('hidden');
+};
+
+export const addHiddenClass = (el) => {
+  el.classList.add('hidden');
+};
+
 // Открыть форму
 
 export const openForm = (buttonName, formName) => {
   const body = document.querySelector('body');
   buttonName.addEventListener('click', () => {
-    formName.classList.remove('hidden');
+    removeHiddenClass(formName);
     body.classList.add('modal-open');
   });
 };
@@ -39,7 +47,7 @@ export const closeFormWithClick = (buttonName, formName) => {
   buttonName.addEventListener('click', (evt) => {
     evt.stopPropagation();
     evt.preventDefault();
-    formName.classList.add('hidden');
+    addHiddenClass(formName);
     body.classList.remove('modal-open');
   });
 };
@@ -52,7 +60,7 @@ export const closeFormWithEsc = (formName) => {
     if (evt.key === 'Escape') {
       evt.stopPropagation();
       evt.preventDefault();
-      formName.classList.add('hidden');
+      addHiddenClass(formName);
       body.classList.remove('modal-open');
     }
   });

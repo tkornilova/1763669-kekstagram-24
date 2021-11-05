@@ -84,6 +84,5 @@ const getPhotoDescriptionObj = (id) => ({
 });
 
 export const photoDescriptions = Array.from({length: PHOTO_DESCRIPTION_COUNT}, (_el, i) => getPhotoDescriptionObj(i + 1));
-export const MOCK_CURRENT_PICTURE = photoDescriptions[0];
 
 export const USER_COMMENT_LENGTH = 5;

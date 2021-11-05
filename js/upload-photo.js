@@ -15,33 +15,27 @@ closeFormWithEsc(changePhotoform);
 const userHashTagValidation = () => {
   const userHashTag = document.querySelector('.text__hashtags');
   const regex = /^#[\w]{1,19}$/;
-  const userHashTags = userHashTag.value.split(' ', USER_COMMENT_LENGTH);
+  const userHashTags = userHashTag.value.split(' ');
 
-  const userHashTagsLowerCase = userHashTags.map(((_value, i) => {
-    userHashTags[i].textContent.toLowerCase();
+  const userHashTagsLowerCase = userHashTags.map(((value) => {
+    value.toLowerCase();
   }));
 
   if (userHashTagsLowerCase.length > 5) {
     userHashTag.setCustomValidity(`Количество хештегов не может быть больше ${  USER_COMMENT_LENGTH  }.`);
   }
 
-  for (let i = 0; i < userHashTagsLowerCase.length; i++) {
-
-    if (userHashTagsLowerCase[i].value.includes(regex)) {
-      userHashTag.setCustomValidity('Хештег должен начинаться с #. Минимальная длина хертега - 2, максимальная - 20. Хештег не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи');
-    }
-
-    for (let k = i + 1 ; k < userHashTagsLowerCase.length; k++) {
-      if (userHashTagsLowerCase[i].textContent === userHashTagsLowerCase[k].textContent) {
-        userHashTag.setCustomValidity('Хештеги не могут повторяться.');
-      }
-      k++;
-    }
+  if (!userHashTagsLowerCase.includes(regex)) {
+    userHashTag.setCustomValidity('Хештег должен начинаться с #. Минимальная длина хештега - 2, максимальная - 20. Хештег не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи');
   }
+
+  const uniqueUserHashTags = _.uniq(userHashTagsLowerCase);
+  if (!userHashTagsLowerCase.length === uniqueUserHashTags.length) {
+    userHashTag.setCustomValidity('Хештеги не могут повторяться.');
+  }
+
   userHashTag.reportValidity();
 };
-
-userHashTagValidation();
 
 const userCommentValidation = () => {
   const userComment = document.querySelector('text__description');
@@ -52,4 +46,12 @@ const userCommentValidation = () => {
   userComment.reportValidity();
 };
 
-userCommentValidation();
+const uploadPhotoForm = document.querySelector('.img-upload__form');
+uploadPhotoForm.addEventListener('change', (evt) => {
+  userHashTagValidation();
+  userCommentValidation();
+
+  if (!uploadPhotoForm.validity.valid) {
+    evt.preventDefault();
+  }
+});

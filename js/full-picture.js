@@ -1,5 +1,7 @@
 import { closeFormWithEsc } from './utils.js';
 import { closeFormWithClick } from './utils.js';
+import { removeHiddenClass } from './utils.js';
+
 const fullPicture = document.querySelector('.big-picture');
 
 // Закрывание full picture с помощью ESC
@@ -34,12 +36,19 @@ export const renderFullPicture = (picture) => {
   addComment(picture.comments);
 
   // Скрыть счетчик комментариев и загрузку новых комментариев, остановить скролл
-  const commentCount = fullPicture.querySelector('.social__comment-count');
-  commentCount.classList.add('hidden');
+  const commentCounter = document.querySelector('.social__comment-count');
+  removeHiddenClass(commentCounter);
 
-  const newCommentAdding = fullPicture.querySelector('.comments-loader');
-  newCommentAdding.classList.add('hidden');
+  const commentLoader = document.querySelector('.comments-loader');
+  removeHiddenClass(commentLoader);
 
-  // Открытие окна full picture
-  fullPicture.classList.remove('hidden');
+  removeHiddenClass(fullPicture);
+
+  const showComments = (commentsArray) => {
+    commentLoader.addEventListener('click', () => {
+      for (let i = 0; i < commentsArray.length; i += 5) {
+        commentsArray.slice(0, i + 5);
+      }
+    });
+  };
 };
