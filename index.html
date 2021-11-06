@@ -115,7 +115,7 @@
 
                 <!-- Добавление хэш-тегов и комментария к изображению -->
                 <fieldset class="img-upload__text text">
-                  <input class="text__hashtags" type="text" name="hashtags" placeholder="#ХэшТег" minlength="2" maxlength="20">
+                  <input class="text__hashtags" type="text" name="hashtags" placeholder="#ХэшТег" minlength="2">
                   <textarea class="text__description" name="description" placeholder="Ваш комментарий..." maxlength="140"></textarea>
                 </fieldset>
 
@@ -150,11 +150,11 @@
           </div>
 
           <!-- Комментарии к изображению -->
-          <div class="social__comment-count">5 из <span class="comments-count">125</span> комментариев</div>
+          <div class="social__comment-count"><span class="comment-count-uploaded">5</span> из <span class="comments-count">125</span> комментариев</div>
           <ul class="social__comments"></ul>
 
           <!-- Кнопка для загрузки новой порции комментариев -->
-          <button type="button" class="social__comments-loader  comments-loader">Загрузить еще</button>
+          <button type="button" class="hidden social__comments-loader  comments-loader">Загрузить еще</button>
 
           <!-- Форма для отправки комментария -->
           <div class="social__footer">

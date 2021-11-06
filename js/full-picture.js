@@ -1,20 +1,37 @@
-import { closeFormWithEsc } from './utils.js';
-import { closeFormWithClick } from './utils.js';
-import { removeHiddenClass } from './utils.js';
+import { addHiddenClass, removeHiddenClass } from './utils.js';
 
 const fullPicture = document.querySelector('.big-picture');
-
-// Закрывание full picture с помощью ESC
+const userCommentsList = document.querySelector('.social__comments');
+const commentLoader = document.querySelector('.comments-loader');
+const commentCounter = document.querySelector('.social__comment-count');
+const body = document.querySelector('body');
 const buttonClose = document.querySelector('.big-picture__cancel');
 
-closeFormWithClick(buttonClose, fullPicture);
-closeFormWithEsc(fullPicture);
+const closeFullPicture = () => {
+  addHiddenClass(fullPicture);
+  body.classList.remove('modal-open');
+  userCommentsList.innerHTML = '';
+  addHiddenClass(commentLoader);
+};
 
-// Создать комментарий и вствить в разметку
+buttonClose.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  closeFullPicture();
+});
+
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    closeFullPicture();
+  }
+});
+
 const addComment = (comments) => {
-  const userCommentsList = document.querySelector('.social__comments');
   const userCommentsTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
   const userCommentsFragment = document.createDocumentFragment();
+
+  // Очистить предыдущий комментарий
+  userCommentsList.innerHTML = '';
 
   comments.forEach ((comment) => {
     const userCommentElement = userCommentsTemplate.cloneNode(true);
@@ -27,28 +44,40 @@ const addComment = (comments) => {
   userCommentsList.appendChild(userCommentsFragment);
 };
 
-// Добавить элементы к full picture
+let renderComments = [];
+
+const showComments = (commentsArray) => {
+  renderComments = commentsArray.slice(0, 5);
+  addComment(renderComments);
+
+  const uploadedComments = document.querySelector('.comment-count-uploaded');
+  uploadedComments.textContent = renderComments.length;
+
+  commentLoader.addEventListener('click', () => {
+    renderComments = commentsArray.slice(0, renderComments.length + 5);
+    addComment(renderComments);
+
+    if (renderComments.length === commentsArray.length) {
+      addHiddenClass(commentLoader);
+    }
+
+    uploadedComments.textContent = renderComments.length;
+  });
+
+};
+
 export const renderFullPicture = (picture) => {
   fullPicture.querySelector('.big-picture__img img').src = picture.url;
   fullPicture.querySelector('.likes-count').textContent = picture.likes;
   fullPicture.querySelector('.comments-count').textContent = picture.comments.length;
   fullPicture.querySelector('.social__caption').textContent = picture.description;
-  addComment(picture.comments);
+  showComments(picture.comments);
 
-  // Скрыть счетчик комментариев и загрузку новых комментариев, остановить скролл
-  const commentCounter = document.querySelector('.social__comment-count');
   removeHiddenClass(commentCounter);
 
-  const commentLoader = document.querySelector('.comments-loader');
-  removeHiddenClass(commentLoader);
+  if (picture.comments.length > 5) {
+    removeHiddenClass(commentLoader);
+  }
 
   removeHiddenClass(fullPicture);
-
-  const showComments = (commentsArray) => {
-    commentLoader.addEventListener('click', () => {
-      for (let i = 0; i < commentsArray.length; i += 5) {
-        commentsArray.slice(0, i + 5);
-      }
-    });
-  };
 };

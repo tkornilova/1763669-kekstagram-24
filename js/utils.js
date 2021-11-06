@@ -1,5 +1,4 @@
 // Найти случайное число из диапазона
-
 export const getRandomIntegerNumber = (min, max) => {
   if (min < 0 || max < 0) {
     return('Минимальное и максимальные значения должны быть больше 0');
@@ -14,7 +13,6 @@ export const getRandomIntegerNumber = (min, max) => {
 };
 
 // Сравнить длину комментария с заданной
-
 export const compareCommentLength = (userCommentLength, maxLength) => {
   if (userCommentLength > maxLength) {
     return false;
@@ -31,7 +29,6 @@ export const addHiddenClass = (el) => {
 };
 
 // Открыть форму
-
 export const openForm = (buttonName, formName) => {
   const body = document.querySelector('body');
   buttonName.addEventListener('click', () => {
@@ -41,11 +38,9 @@ export const openForm = (buttonName, formName) => {
 };
 
 // Закрыть форму по клику
-
 export const closeFormWithClick = (buttonName, formName) => {
   const body = document.querySelector('body');
   buttonName.addEventListener('click', (evt) => {
-    evt.stopPropagation();
     evt.preventDefault();
     addHiddenClass(formName);
     body.classList.remove('modal-open');
@@ -53,15 +48,17 @@ export const closeFormWithClick = (buttonName, formName) => {
 };
 
 // Закрыть форму с помощью ESC
-
-export const closeFormWithEsc = (formName) => {
+export const closeFormWithEsc = (formName, elForReset = '', withReset = false) => {
   const body = document.querySelector('body');
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
-      evt.stopPropagation();
       evt.preventDefault();
       addHiddenClass(formName);
       body.classList.remove('modal-open');
+
+      if (withReset) {
+        elForReset.innerHTML = '';
+      }
     }
   });
 };
