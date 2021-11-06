@@ -38,7 +38,7 @@ const userHashTagValidation = () => {
 };
 
 const userCommentValidation = () => {
-  const userComment = document.querySelector('text__description');
+  const userComment = document.querySelector('.text__description');
   if (userComment.validity.tooLong) {
     userComment.setCustomValidity('Максимальная длинна комментария 140 символов.');
   }
@@ -47,11 +47,7 @@ const userCommentValidation = () => {
 };
 
 const uploadPhotoForm = document.querySelector('.img-upload__form');
-uploadPhotoForm.addEventListener('change', (evt) => {
+uploadPhotoForm.addEventListener('change', () => {
   userHashTagValidation();
   userCommentValidation();
-
-  if (!uploadPhotoForm.validity.valid) {
-    evt.preventDefault();
-  }
 });
