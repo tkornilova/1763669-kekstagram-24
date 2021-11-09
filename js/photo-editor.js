@@ -1,5 +1,6 @@
 import { scaleValueStep } from './data.js';
 import './../nouislider/nouislider.js';
+import { addHiddenClass, removeHiddenClass } from './utils.js';
 
 const buttonScaleSmaller = document.querySelector('.scale__control--smaller');
 const buttonScaleBigger = document.querySelector('.scale__control--bigger');
@@ -10,8 +11,7 @@ const effectsSliderContainer = document.querySelector('.effect-level__slider');
 const effectLevel = document.querySelector('.effect-level__value');
 
 const rescaleUploadPhoto = (value, el) => {
-  const photoTransformation = `transform: scale(${value / 100})`;
-  el.style.cssText = photoTransformation;
+  el.style.cssText = `transform: scale(${value / 100})`;
 };
 
 buttonScaleSmaller.addEventListener('click', () => {
@@ -34,8 +34,23 @@ buttonScaleBigger.addEventListener('click', () => {
   rescaleUploadPhoto(Number(scaleValue.value), uploadPhotoPreview);
 });
 
-const createSlider = (minValue, maxValue, stepValue, startValue) => {
+const createSlider = () => {
   noUiSlider.create(effectsSliderContainer, {
+    range: {
+      min: 0,
+      max: 100,
+    },
+    start: 100,
+    step: 1,
+  });
+
+  addHiddenClass(effectsSliderContainer);
+};
+
+createSlider();
+
+const changeSliderOptions = (minValue, maxValue, stepValue, startValue) => {
+  effectsSliderContainer.noUiSlider.updateOptions({
     range: {
       min: minValue,
       max: maxValue,
@@ -45,37 +60,46 @@ const createSlider = (minValue, maxValue, stepValue, startValue) => {
   });
 };
 
+const changeEffectLevel = (value, effect) => {
+  uploadPhotoPreview.style.cssText = `filter: ${ String(effect) }(${value})`;
+};
+
 const onEffectsChange = (evt) => {
   uploadPhotoPreview.className = '';
   uploadPhotoPreview.classList.add(`effects__preview--${evt.target.value}`);
 
   switch (true) {
     case evt.target.value === 'none':
-      effectsSliderContainer.noUiSlider.destroy();
+      addHiddenClass(effectsSliderContainer);
       break;
     case evt.target.value === 'chrome':
-      createSlider(0, 1, 0.1, 1);
-      uploadPhotoPreview.style.filter = `grayscale(${evt.target.value})`;
+      removeHiddenClass(effectsSliderContainer);
+      changeSliderOptions(0, 1, 0.1, 1);
+      changeEffectLevel(evt.target.value, 'grayscale');
       break;
     case evt.target.value === 'sepia':
-      createSlider(0, 1, 0.1, 1);
-      uploadPhotoPreview.style.filter = `sepia(${evt.target.value})`;
+      removeHiddenClass(effectsSliderContainer);
+      changeSliderOptions(0, 1, 0.1, 1);
+      changeEffectLevel(evt.target.value, 'sepia');
       break;
     case evt.target.value === 'marvin':
-      createSlider(0, 100, 1, 100);
-      uploadPhotoPreview.style.filter = `invert(${evt.target.value}%)`;
+      removeHiddenClass(effectsSliderContainer);
+      changeSliderOptions(0, 100, 1, 100);
+      changeEffectLevel(evt.target.value, 'invert');
       break;
     case evt.target.value === 'phobos':
-      createSlider(0, 3, 0.1, 3);
-      uploadPhotoPreview.style.filter = `blur(${evt.target.value}px)`;
+      removeHiddenClass(effectsSliderContainer);
+      changeSliderOptions(0, 3, 0.1, 3);
+      changeEffectLevel(evt.target.value, 'blur');
       break;
     case evt.target.value === 'heat':
-      createSlider(0, 3, 0.1, 3);
-      uploadPhotoPreview.style.filter = `brightness(${evt.target.value})`;
+      removeHiddenClass(effectsSliderContainer);
+      changeSliderOptions(0, 3, 0.1, 3);
+      changeEffectLevel(evt.target.value, 'brightness');
       break;
   }
 
-  if (!(evt.target.value === 'none')) {
+  if (evt.target.value !== 'none') {
     effectsSliderContainer.noUiSlider.on('update', (_, handle, undecoded) => {
       effectLevel.value = undecoded[handle];
     });
