@@ -74,31 +74,26 @@ const onEffectsChange = (evt) => {
       addHiddenClass(effectLevel);
       break;
     case evt.target.value === 'chrome':
-      uploadPhotoPreview.style.cssText = '';
       removeHiddenClass(effectLevel);
       filterState.current = 'grayscale';
       changeSliderOptions(0, 1, 0.1, 1);
       break;
     case evt.target.value === 'sepia':
-      uploadPhotoPreview.style.cssText = '';
       removeHiddenClass(effectLevel);
       filterState.current = 'sepia';
       changeSliderOptions(0, 1, 0.1, 1);
       break;
     case evt.target.value === 'marvin':
-      uploadPhotoPreview.style.cssText = '';
       removeHiddenClass(effectLevel);
       filterState.current = 'invert';
       changeSliderOptions(0, 100, 1, 100);
       break;
     case evt.target.value === 'phobos':
-      uploadPhotoPreview.style.cssText = '';
       removeHiddenClass(effectLevel);
       filterState.current = 'blur';
       changeSliderOptions(0, 3, 0.1, 3);
       break;
     case evt.target.value === 'heat':
-      uploadPhotoPreview.style.cssText = '';
       removeHiddenClass(effectLevel);
       filterState.current = 'brightness';
       changeSliderOptions(0, 3, 0.1, 3);
