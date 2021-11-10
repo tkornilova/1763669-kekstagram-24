@@ -86,3 +86,5 @@ const getPhotoDescriptionObj = (id) => ({
 export const photoDescriptions = Array.from({length: PHOTO_DESCRIPTION_COUNT}, (_el, i) => getPhotoDescriptionObj(i + 1));
 
 export const USER_COMMENT_LENGTH = 5;
+
+export const scaleValueStep = 25;
