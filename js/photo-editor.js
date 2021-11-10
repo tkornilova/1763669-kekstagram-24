@@ -8,6 +8,7 @@ const scaleValue = document.querySelector('.scale__control--value');
 const uploadPhotoPreview = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
 const effectsSliderContainer = document.querySelector('.effect-level__slider');
+const effectLevel = document.querySelector('.effect-level');
 
 const rescaleUploadPhoto = (value, el) => {
   el.style.cssText = `transform: scale(${value / 100})`;
@@ -43,7 +44,7 @@ const createSlider = () => {
     step: 1,
   });
 
-  addHiddenClass(effectsSliderContainer);
+  addHiddenClass(effectLevel);
 };
 
 createSlider();
@@ -63,38 +64,42 @@ const filterState = {
   current: 'none',
 };
 
+const changeEffectLevel = (value, effect) => {
+
+};
+
 const onEffectsChange = (evt) => {
   uploadPhotoPreview.className = '';
   uploadPhotoPreview.classList.add(`effects__preview--${evt.target.value}`);
 
   switch (true) {
     case evt.target.value === 'none':
-      addHiddenClass(effectsSliderContainer);
+      addHiddenClass(effectLevel);
       break;
     case evt.target.value === 'chrome':
-      removeHiddenClass(effectsSliderContainer);
-      changeSliderOptions(0, 1, 0.1, 1);
+      removeHiddenClass(effectLevel);
       filterState.current = 'grayscale';
+      changeSliderOptions(0, 1, 0.1, 1);
       break;
     case evt.target.value === 'sepia':
-      removeHiddenClass(effectsSliderContainer);
-      changeSliderOptions(0, 1, 0.1, 1);
+      removeHiddenClass(effectLevel);
       filterState.current = 'sepia';
+      changeSliderOptions(0, 1, 0.1, 1);
       break;
     case evt.target.value === 'marvin':
-      removeHiddenClass(effectsSliderContainer);
-      changeSliderOptions(0, 100, 1, 100);
+      removeHiddenClass(effectLevel);
       filterState.current = 'invert';
+      changeSliderOptions(0, 100, 1, 100);
       break;
     case evt.target.value === 'phobos':
-      removeHiddenClass(effectsSliderContainer);
-      changeSliderOptions(0, 3, 0.1, 3);
+      removeHiddenClass(effectLevel);
       filterState.current = 'blur';
+      changeSliderOptions(0, 3, 0.1, 3);
       break;
     case evt.target.value === 'heat':
-      removeHiddenClass(effectsSliderContainer);
-      changeSliderOptions(0, 3, 0.1, 3);
+      removeHiddenClass(effectLevel);
       filterState.current = 'brightness';
+      changeSliderOptions(0, 3, 0.1, 3);
       break;
   }
 };
