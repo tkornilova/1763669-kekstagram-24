@@ -8,7 +8,6 @@ const scaleValue = document.querySelector('.scale__control--value');
 const uploadPhotoPreview = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
 const effectsSliderContainer = document.querySelector('.effect-level__slider');
-const effectLevel = document.querySelector('.effect-level__value');
 
 const rescaleUploadPhoto = (value, el) => {
   el.style.cssText = `transform: scale(${value / 100})`;
@@ -60,8 +59,8 @@ const changeSliderOptions = (minValue, maxValue, stepValue, startValue) => {
   });
 };
 
-const changeEffectLevel = (value, effect) => {
-  uploadPhotoPreview.style.cssText = `filter: ${ String(effect) }(${value})`;
+const filterState = {
+  current: 'none',
 };
 
 const onEffectsChange = (evt) => {
@@ -75,35 +74,53 @@ const onEffectsChange = (evt) => {
     case evt.target.value === 'chrome':
       removeHiddenClass(effectsSliderContainer);
       changeSliderOptions(0, 1, 0.1, 1);
-      changeEffectLevel(evt.target.value, 'grayscale');
+      filterState.current = 'grayscale';
       break;
     case evt.target.value === 'sepia':
       removeHiddenClass(effectsSliderContainer);
       changeSliderOptions(0, 1, 0.1, 1);
-      changeEffectLevel(evt.target.value, 'sepia');
+      filterState.current = 'sepia';
       break;
     case evt.target.value === 'marvin':
       removeHiddenClass(effectsSliderContainer);
       changeSliderOptions(0, 100, 1, 100);
-      changeEffectLevel(evt.target.value, 'invert');
+      filterState.current = 'invert';
       break;
     case evt.target.value === 'phobos':
       removeHiddenClass(effectsSliderContainer);
       changeSliderOptions(0, 3, 0.1, 3);
-      changeEffectLevel(evt.target.value, 'blur');
+      filterState.current = 'blur';
       break;
     case evt.target.value === 'heat':
       removeHiddenClass(effectsSliderContainer);
       changeSliderOptions(0, 3, 0.1, 3);
-      changeEffectLevel(evt.target.value, 'brightness');
+      filterState.current = 'brightness';
       break;
   }
-
-  if (evt.target.value !== 'none') {
-    effectsSliderContainer.noUiSlider.on('update', (_, handle, undecoded) => {
-      effectLevel.value = undecoded[handle];
-    });
-  }
 };
+
+effectsSliderContainer.noUiSlider.on('update', (_, handle, undecoded) => {
+  const updateEffectParameters = (units) => {
+    uploadPhotoPreview.style.cssText = `filter: ${filterState.current}(${undecoded[handle]}${units})`;
+  };
+
+  switch (true) {
+    case filterState.current === 'grayscale':
+      updateEffectParameters('');
+      break;
+    case filterState.current === 'sepia':
+      updateEffectParameters('');
+      break;
+    case filterState.current === 'invert':
+      updateEffectParameters('%');
+      break;
+    case filterState.current === 'blur':
+      updateEffectParameters('px');
+      break;
+    case filterState.current === 'brightness':
+      updateEffectParameters('');
+      break;
+  }
+});
 
 effectsList.addEventListener('change', onEffectsChange);
