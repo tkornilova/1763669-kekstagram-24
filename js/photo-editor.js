@@ -64,10 +64,6 @@ const filterState = {
   current: 'none',
 };
 
-const changeEffectLevel = (value, effect) => {
-
-};
-
 const onEffectsChange = (evt) => {
   uploadPhotoPreview.className = '';
   uploadPhotoPreview.classList.add(`effects__preview--${evt.target.value}`);
