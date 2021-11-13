@@ -7,5 +7,4 @@ fetch('https://24.javascript.pages.academy/kekstagram/data')
   .then((userData) => {
     renderUserMiniatures(userData);
     console.log(userData);
-});
-
+  });

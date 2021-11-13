@@ -19,7 +19,6 @@ export const renderUserMiniatures = (photoDescriptions) => {
     miniatureElement.addEventListener('click', () => onCurrentMiniatureClick(miniature.id));
     userMiniaturesFragment.appendChild(miniatureElement);
   });
-}
+};
 
 userMiniatureElement.appendChild(userMiniaturesFragment);
-
