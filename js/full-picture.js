@@ -30,7 +30,6 @@ const addComment = (comments) => {
   const userCommentsTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
   const userCommentsFragment = document.createDocumentFragment();
 
-  // Очистить предыдущий комментарий
   userCommentsList.innerHTML = '';
 
   comments.forEach ((comment) => {

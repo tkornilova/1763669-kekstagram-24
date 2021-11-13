@@ -1,29 +1,9 @@
-// Найти случайное число из диапазона
-export const getRandomIntegerNumber = (min, max) => {
-  if (min < 0 || max < 0) {
-    return('Минимальное и максимальные значения должны быть больше 0');
-  }
-
-  if (min >= max) {
-    return('Минимальное значение должно быть меньше максимального');
-  }
-
-  const rand = min + Math.random() * (max + 1 - min);
-  return(Math.floor(rand));
-};
-
-// Сравнить длину комментария с заданной
-export const compareCommentLength = (userCommentLength, maxLength) => {
-  if (userCommentLength > maxLength) {
-    return false;
-  }
-  return true;
-};
-
+// Убрать класс hidden
 export const removeHiddenClass = (el) => {
   el.classList.remove('hidden');
 };
 
+// Добавить класс hidden
 export const addHiddenClass = (el) => {
   el.classList.add('hidden');
 };
@@ -37,7 +17,7 @@ export const openForm = (buttonName, formName) => {
   });
 };
 
-// Закрыть форму по клику
+// Закрыть форму по клику на кнопку-крестик
 export const closeFormWithClick = (buttonName, formName) => {
   const body = document.querySelector('body');
   buttonName.addEventListener('click', (evt) => {
@@ -48,17 +28,44 @@ export const closeFormWithClick = (buttonName, formName) => {
 };
 
 // Закрыть форму с помощью ESC
-export const closeFormWithEsc = (formName, elForReset = '', withReset = false) => {
+export const closeFormWithEsc = (formName) => {
   const body = document.querySelector('body');
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
       addHiddenClass(formName);
       body.classList.remove('modal-open');
-
-      if (withReset) {
-        elForReset.innerHTML = '';
-      }
     }
   });
+};
+
+// Закрыть форму по клику за пределы формы
+const closeFormWithClickOut = (formName) => {
+  document.addEventListener('click', () => {
+    addHiddenClass(formName);
+  });
+};
+
+export const showSuccessMessage = () => {
+  const successTemplate = document.querySelector('#success').content.querySelector('.success');
+  const body = document.querySelector('body');
+  const successMessageCloseButton = document.querySelector('.success__button');
+
+  body.appendChild(successTemplate);
+
+  closeFormWithEsc(successMessageCloseButton, successTemplate);
+  closeFormWithClick(successMessageCloseButton, successTemplate);
+  closeFormWithClickOut(successTemplate);
+};
+
+export const showErrorMessage = () => {
+  const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+  const body = document.querySelector('body');
+  const errorMessageCloseButton = document.querySelector('.error__button');
+
+  body.appendChild(errorTemplate);
+
+  closeFormWithEsc(errorMessageCloseButton, errorTemplate);
+  closeFormWithClick(errorMessageCloseButton, errorTemplate);
+  closeFormWithClickOut(errorTemplate);
 };

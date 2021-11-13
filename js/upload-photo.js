@@ -1,9 +1,19 @@
-import { openForm, closeFormWithClick, closeFormWithEsc } from './utils.js';
-import { USER_COMMENT_LENGTH } from './data.js';
+import {
+  openForm,
+  closeFormWithClick,
+  closeFormWithEsc,
+  showSuccessMessage,
+  showErrorMessage
+} from './utils.js';
+
+import { sendData } from './api.js';
 
 const changePhotoform = document.querySelector('.img-upload__overlay');
 const uploadPhotoInput = document.querySelector('#upload-file');
 const uploadButtonClose = document.querySelector('#upload-cancel');
+const uploadPhotoForm = document.querySelector('.img-upload__form');
+const uploadPhotoButtonSubmit = document.querySelector('.img-upload__submit');
+const USER_COMMENT_LENGTH = 5;
 
 openForm(uploadPhotoInput, changePhotoform);
 
@@ -46,8 +56,19 @@ const userCommentValidation = () => {
   userComment.reportValidity();
 };
 
-const uploadPhotoForm = document.querySelector('.img-upload__form');
 uploadPhotoForm.addEventListener('change', () => {
   userHashTagValidation();
   userCommentValidation();
 });
+
+export const setUploadFormSubmit = () => {
+  uploadPhotoButtonSubmit.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => showSuccessMessage(),
+      () => showErrorMessage(),
+      new FormData(evt.target),
+    );
+  });
+};

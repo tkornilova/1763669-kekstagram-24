@@ -1,4 +1,3 @@
-import { scaleValueStep } from './data.js';
 import './../nouislider/nouislider.js';
 import { addHiddenClass, removeHiddenClass } from './utils.js';
 
@@ -9,6 +8,7 @@ const uploadPhotoPreview = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
 const effectsSliderContainer = document.querySelector('.effect-level__slider');
 const effectLevel = document.querySelector('.effect-level');
+const scaleValueStep = 25;
 
 const rescaleUploadPhoto = (value, el) => {
   el.style.cssText = `transform: scale(${value / 100})`;

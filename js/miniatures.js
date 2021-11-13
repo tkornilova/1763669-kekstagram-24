@@ -1,4 +1,3 @@
-//import { photoDescriptions } from './data.js';
 import { renderFullPicture } from './full-picture.js';
 
 const userMiniatureElement = document.querySelector('.pictures');
@@ -19,6 +18,7 @@ export const renderUserMiniatures = (photoDescriptions) => {
     miniatureElement.addEventListener('click', () => onCurrentMiniatureClick(miniature.id));
     userMiniaturesFragment.appendChild(miniatureElement);
   });
+
+  userMiniatureElement.appendChild(userMiniaturesFragment);
 };
 
-userMiniatureElement.appendChild(userMiniaturesFragment);
