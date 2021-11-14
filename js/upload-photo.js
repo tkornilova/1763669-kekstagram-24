@@ -3,7 +3,8 @@ import {
   closeFormWithClick,
   closeFormWithEsc,
   showSuccessMessage,
-  showErrorMessage
+  showErrorMessage,
+  addHiddenClass
 } from './utils.js';
 
 import { sendData } from './api.js';
@@ -67,11 +68,12 @@ uploadPhotoForm.addEventListener('submit', (evt) => {
 
   sendData(
     () => {
+      addHiddenClass(uploadPhotoForm);
       showSuccessMessage(),
       rescaleUploadPhoto(100, uploadPhotoPreview);
       uploadPhotoPreview.classList.add('effects__preview--none');
-      userHashTag.textContent = '';
-      userComment.textContent = '';},
+      userHashTag.value = '';
+      userComment.value = '';},
     () => showErrorMessage(),
     new FormData(evt.target),
   );

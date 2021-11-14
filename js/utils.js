@@ -49,9 +49,10 @@ const closeFormWithClickOut = (formName) => {
 export const showSuccessMessage = () => {
   const successTemplate = document.querySelector('#success').content.querySelector('.success');
   const body = document.querySelector('body');
-  const successMessageCloseButton = document.querySelector('.success__button');
 
   body.appendChild(successTemplate);
+
+  const successMessageCloseButton = document.querySelector('.success__button');
 
   closeFormWithEsc(successMessageCloseButton, successTemplate);
   closeFormWithClick(successMessageCloseButton, successTemplate);
@@ -61,9 +62,10 @@ export const showSuccessMessage = () => {
 export const showErrorMessage = () => {
   const errorTemplate = document.querySelector('#error').content.querySelector('.error');
   const body = document.querySelector('body');
-  const errorMessageCloseButton = document.querySelector('.error__button');
 
   body.appendChild(errorTemplate);
+
+  const errorMessageCloseButton = document.querySelector('.error__button');
 
   closeFormWithEsc(errorMessageCloseButton, errorTemplate);
   closeFormWithClick(errorMessageCloseButton, errorTemplate);
