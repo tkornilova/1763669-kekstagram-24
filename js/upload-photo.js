@@ -14,7 +14,7 @@ const changePhotoForm = document.querySelector('.img-upload__overlay');
 const uploadPhotoInput = document.querySelector('#upload-file');
 const uploadButtonClose = document.querySelector('#upload-cancel');
 const uploadPhotoForm = document.querySelector('.img-upload__form');
-const USER_COMMENT_LENGTH = 5;
+const USER_COMMENT_LENGTH = 5; // лучше ее или выше или ниже селекторов сделать, чтобы отделить для большей читаемости
 const uploadPhotoPreview = document.querySelector('.img-upload__preview img');
 const userHashTag = document.querySelector('.text__hashtags');
 const userComment = document.querySelector('.text__description');
@@ -25,7 +25,7 @@ closeFormWithClick (uploadButtonClose, changePhotoForm);
 
 closeFormWithEsc(changePhotoForm);
 
-const userHashTagValidation = () => {
+const userHashTagValidation = () => { // функцию принято называть с глагола, хотя бы просто порядок слов поменяй validationUserHashTag
   const regex = /^#[\w]{1,19}$/;
   const userHashTags = userHashTag.value.split(' ');
 
@@ -33,7 +33,7 @@ const userHashTagValidation = () => {
   const uniqueUserHashTags = _.uniq(userHashTagsLowerCase);
 
   switch (true) {
-    case userHashTagsLowerCase.length > 5:
+    case userHashTagsLowerCase.length > 5: // лучше написать USER_COMMENT_LENGTH а не 5
       userHashTag.setCustomValidity(`Количество хештегов не может быть больше ${  USER_COMMENT_LENGTH  }.`);
       break;
     case !userHashTagsLowerCase.every((value) => value.match(regex)):
@@ -50,7 +50,7 @@ const userHashTagValidation = () => {
   userHashTag.reportValidity();
 };
 
-const userCommentValidation = () => {
+const userCommentValidation = () => { // лучше название с глагола начинать
   if (userComment.validity.tooLong) {
     userComment.setCustomValidity('Максимальная длинна комментария 140 символов.');
   }
@@ -74,7 +74,8 @@ uploadPhotoForm.addEventListener('submit', (evt) => {
       uploadPhotoPreview.classList.add('effects__preview--none');
       userHashTag.value = '';
       userComment.value = '';},
-    () => showErrorMessage(),
+    () => showErrorMessage(), // для ошибки нужно скрывать форму загрузки, по аналогии с успешной отправкой
+    // можно даже общий код сброса вынести в отдельную функцию
     new FormData(evt.target),
   );
 });

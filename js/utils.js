@@ -10,7 +10,7 @@ export const addHiddenClass = (el) => {
 
 // Открыть форму
 export const openForm = (buttonName, formName) => {
-  const body = document.querySelector('body');
+  const body = document.querySelector('body'); // это можно вынести вверх файл
   buttonName.addEventListener('click', () => {
     removeHiddenClass(formName);
     body.classList.add('modal-open');
@@ -19,7 +19,7 @@ export const openForm = (buttonName, formName) => {
 
 // Закрыть форму по клику на кнопку-крестик
 export const closeFormWithClick = (buttonName, formName) => {
-  const body = document.querySelector('body');
+  const body = document.querySelector('body'); // это можно вынести вверх файл
   buttonName.addEventListener('click', (evt) => {
     evt.preventDefault();
     addHiddenClass(formName);
@@ -29,7 +29,7 @@ export const closeFormWithClick = (buttonName, formName) => {
 
 // Закрыть форму с помощью ESC
 export const closeFormWithEsc = (formName) => {
-  const body = document.querySelector('body');
+  const body = document.querySelector('body'); // это можно вынести вверх файл
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();

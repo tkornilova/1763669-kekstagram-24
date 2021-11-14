@@ -8,6 +8,7 @@ const uploadPhotoPreview = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
 const effectsSliderContainer = document.querySelector('.effect-level__slider');
 const effectLevel = document.querySelector('.effect-level');
+// пробел желательно чтобы отделить константу от списка элементов и пробел забыла после имени
 const SCALE_VALUE_STEP= 25;
 
 export const rescaleUploadPhoto = (value, el) => {
@@ -17,9 +18,9 @@ export const rescaleUploadPhoto = (value, el) => {
 buttonScaleSmaller.addEventListener('click', () => {
   if (!(scaleValue.value <= 25)) {
     scaleValue.value = scaleValue.value - SCALE_VALUE_STEP;
-  } else {
+  } else { // а за чем ветка else, она не нужна, удали ее
     false;
-  }
+  }// до сюда
 
   rescaleUploadPhoto(scaleValue.value, uploadPhotoPreview);
 });
@@ -27,7 +28,7 @@ buttonScaleSmaller.addEventListener('click', () => {
 buttonScaleBigger.addEventListener('click', () => {
   if (!(scaleValue.value >= 100)) {
     scaleValue.value = Number(scaleValue.value) + SCALE_VALUE_STEP;
-  } else {
+  } else { // аналогично, ветка else не нужна
     false;
   }
 
@@ -69,14 +70,30 @@ const onEffectsChange = (evt) => {
   uploadPhotoPreview.classList.add(`effects__preview--${evt.target.value}`);
 
   switch (true) {
-    case evt.target.value === 'none':
+    case evt.target.value === 'none': // под тип фильтра завести объект перечисление
+      // const FilterType = {
+      //  NONE: 'none',
+      //  CHROME: 'chrome',
+      //  ...
+      //}
       uploadPhotoPreview.style.cssText = '';
       addHiddenClass(effectLevel);
       break;
     case evt.target.value === 'chrome':
       removeHiddenClass(effectLevel);
       filterState.current = 'grayscale';
-      changeSliderOptions(0, 1, 0.1, 1);
+      changeSliderOptions(0, 1, 0.1, 1); // желательно завести объект перечисления под эти значения
+      // чтобы не было магических значений, вида
+      // const InitSliderOptions = {
+      //   CHROME: {
+      //     MIN: 0,
+      //     MAX: 1,
+      //     STEP: 0.1,
+      //     START: 1
+      //   },
+      //  SEPIA: {..},
+      // ...
+      // }
       break;
     case evt.target.value === 'sepia':
       removeHiddenClass(effectLevel);
@@ -108,7 +125,7 @@ effectsSliderContainer.noUiSlider.on('update', (_, handle, undecoded) => {
   };
 
   switch (true) {
-    case filterState.current === 'grayscale':
+    case filterState.current === 'grayscale': // лучше const EffectType = {GRAYSCALE: 'grayscale', ...}
       updateEffectParameters('');
       break;
     case filterState.current === 'sepia':
