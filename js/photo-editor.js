@@ -10,7 +10,7 @@ const effectsSliderContainer = document.querySelector('.effect-level__slider');
 const effectLevel = document.querySelector('.effect-level');
 const SCALE_VALUE_STEP= 25;
 
-const rescaleUploadPhoto = (value, el) => {
+export const rescaleUploadPhoto = (value, el) => {
   el.style.cssText = `transform: scale(${value / 100})`;
 };
 

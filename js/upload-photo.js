@@ -7,12 +7,16 @@ import {
 } from './utils.js';
 
 import { sendData } from './api.js';
+import { rescaleUploadPhoto } from './photo-editor.js';
 
 const changePhotoform = document.querySelector('.img-upload__overlay');
 const uploadPhotoInput = document.querySelector('#upload-file');
 const uploadButtonClose = document.querySelector('#upload-cancel');
 const uploadPhotoForm = document.querySelector('.img-upload__form');
 const USER_COMMENT_LENGTH = 5;
+const uploadPhotoPreview = document.querySelector('.img-upload__preview img');
+const userHashTag = document.querySelector('.text__hashtags');
+const userComment = document.querySelector('.text__description');
 
 openForm(uploadPhotoInput, changePhotoform);
 
@@ -21,7 +25,6 @@ closeFormWithClick (uploadButtonClose, changePhotoform);
 closeFormWithEsc(changePhotoform);
 
 const userHashTagValidation = () => {
-  const userHashTag = document.querySelector('.text__hashtags');
   const regex = /^#[\w]{1,19}$/;
   const userHashTags = userHashTag.value.split(' ');
 
@@ -47,7 +50,6 @@ const userHashTagValidation = () => {
 };
 
 const userCommentValidation = () => {
-  const userComment = document.querySelector('.text__description');
   if (userComment.validity.tooLong) {
     userComment.setCustomValidity('Максимальная длинна комментария 140 символов.');
   }
@@ -60,14 +62,17 @@ uploadPhotoForm.addEventListener('change', () => {
   userCommentValidation();
 });
 
-export const setUploadFormSubmit = () => {
-  uploadPhotoForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
+uploadPhotoForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
 
-    sendData(
-      () => showSuccessMessage(),
-      () => showErrorMessage(),
-      new FormData(evt.target),
-    );
-  });
-};
+  sendData(
+    () => {
+      showSuccessMessage(),
+      rescaleUploadPhoto(100, uploadPhotoPreview);
+      uploadPhotoPreview.classList.add('effects__preview--none');
+      userHashTag.textContent = '';
+      userComment.textContent = '';},
+    () => showErrorMessage(),
+    new FormData(evt.target),
+  );
+});
