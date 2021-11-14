@@ -8,7 +8,7 @@ const uploadPhotoPreview = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
 const effectsSliderContainer = document.querySelector('.effect-level__slider');
 const effectLevel = document.querySelector('.effect-level');
-const scaleValueStep = 25;
+const SCALE_VALUE_STEP= 25;
 
 const rescaleUploadPhoto = (value, el) => {
   el.style.cssText = `transform: scale(${value / 100})`;
@@ -16,7 +16,7 @@ const rescaleUploadPhoto = (value, el) => {
 
 buttonScaleSmaller.addEventListener('click', () => {
   if (!(scaleValue.value <= 25)) {
-    scaleValue.value = scaleValue.value - scaleValueStep;
+    scaleValue.value = scaleValue.value - SCALE_VALUE_STEP;
   } else {
     false;
   }
@@ -26,7 +26,7 @@ buttonScaleSmaller.addEventListener('click', () => {
 
 buttonScaleBigger.addEventListener('click', () => {
   if (!(scaleValue.value >= 100)) {
-    scaleValue.value = Number(scaleValue.value) + scaleValueStep;
+    scaleValue.value = Number(scaleValue.value) + SCALE_VALUE_STEP;
   } else {
     false;
   }
