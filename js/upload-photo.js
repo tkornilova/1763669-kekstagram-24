@@ -12,7 +12,6 @@ const changePhotoform = document.querySelector('.img-upload__overlay');
 const uploadPhotoInput = document.querySelector('#upload-file');
 const uploadButtonClose = document.querySelector('#upload-cancel');
 const uploadPhotoForm = document.querySelector('.img-upload__form');
-const uploadPhotoButtonSubmit = document.querySelector('.img-upload__submit');
 const USER_COMMENT_LENGTH = 5;
 
 openForm(uploadPhotoInput, changePhotoform);
@@ -62,7 +61,7 @@ uploadPhotoForm.addEventListener('change', () => {
 });
 
 export const setUploadFormSubmit = () => {
-  uploadPhotoButtonSubmit.addEventListener('submit', (evt) => {
+  uploadPhotoForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
