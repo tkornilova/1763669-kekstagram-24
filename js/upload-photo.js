@@ -10,7 +10,7 @@ import {
 import { sendData } from './api.js';
 import { rescaleUploadPhoto } from './photo-editor.js';
 
-const changePhotoform = document.querySelector('.img-upload__overlay');
+const changePhotoForm = document.querySelector('.img-upload__overlay');
 const uploadPhotoInput = document.querySelector('#upload-file');
 const uploadButtonClose = document.querySelector('#upload-cancel');
 const uploadPhotoForm = document.querySelector('.img-upload__form');
@@ -19,11 +19,11 @@ const uploadPhotoPreview = document.querySelector('.img-upload__preview img');
 const userHashTag = document.querySelector('.text__hashtags');
 const userComment = document.querySelector('.text__description');
 
-openForm(uploadPhotoInput, changePhotoform);
+openForm(uploadPhotoInput, changePhotoForm);
 
-closeFormWithClick (uploadButtonClose, changePhotoform);
+closeFormWithClick (uploadButtonClose, changePhotoForm);
 
-closeFormWithEsc(changePhotoform);
+closeFormWithEsc(changePhotoForm);
 
 const userHashTagValidation = () => {
   const regex = /^#[\w]{1,19}$/;
@@ -68,7 +68,7 @@ uploadPhotoForm.addEventListener('submit', (evt) => {
 
   sendData(
     () => {
-      addHiddenClass(uploadPhotoForm);
+      addHiddenClass(changePhotoForm);
       showSuccessMessage(),
       rescaleUploadPhoto(100, uploadPhotoPreview);
       uploadPhotoPreview.classList.add('effects__preview--none');
