@@ -34,18 +34,18 @@ getData ((userData) => {
       addFilter(photoSortingButton);
 
       if (photoSortingButton.id === 'filter-default') {
-        _.debounce(renderUserMiniatures(userData), RERENDER_DELAY);
+        renderUserMiniatures(userData);
       }
       if (photoSortingButton.id === 'filter-random') {
         const randomPictures = _.uniqBy(userData, 'url')
           .slice(0, RANDOM_PICTURES_NUMBER);
-        _.debounce(renderUserMiniatures(randomPictures), RERENDER_DELAY);
+        renderUserMiniatures(randomPictures);
       }
       if (photoSortingButton.id === 'filter-discussed') {
         const topMiniatures = userData
           .slice()
           .sort(sortDataDiscussed);
-        _.debounce(renderUserMiniatures(topMiniatures), RERENDER_DELAY);
+        renderUserMiniatures(topMiniatures);
       }
     }, RERENDER_DELAY);
 
