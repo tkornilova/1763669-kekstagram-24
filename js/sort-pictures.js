@@ -8,21 +8,11 @@ const filterButtonRandom = document.querySelector('#filter-random');
 const filterButtonDiscussed = document.querySelector('#filter-discussed');
 
 const RANDOM_PICTURES_NUMBER = 10;
+const RERENDER_DELAY = 500;
 
 photoSorting.classList.remove('img-filters--inactive');
 
-const sortDataDiscussed = (pictureA, pictureB) => {
-  if (pictureA.comments.length < pictureB.comments.length) {
-    return 1;
-  } else {
-    return -1;
-  }
-};
-
-const sortDataRandom = (data) => {
-  (renderUserMiniatures(data)); //Не знаю как именно выбрать, чтобы были именно РАЗНЫЕ картинки
-
-};
+const sortDataDiscussed = (pictureA, pictureB) => pictureA.comments.length < pictureB.comments.length;
 
 const removeFilterFromAll = () => {
   filterButtonDefault.classList.remove('img-filters__button--active');
@@ -39,23 +29,22 @@ getData ((userData) => {
 
   photoSortingButtons.forEach ((photoSortingButton) => {
     photoSortingButton.addEventListener('click', () => {
+      removeFilterFromAll();
+      addFilter(photoSortingButton);
+
       if (photoSortingButton.id === 'filter-default') {
-        removeFilterFromAll();
-        addFilter(photoSortingButton);
-        renderUserMiniatures(userData);
+        _.debounce(renderUserMiniatures(userData), RERENDER_DELAY);
       }
       if (photoSortingButton.id === 'filter-random') {
-        removeFilterFromAll();
-        addFilter(photoSortingButton);
-        userData
-          .sort(sortDataRandom)
+        const randomPictures = _.uniqBy(userData, 'url')
           .slice(0, RANDOM_PICTURES_NUMBER);
+        _.debounce(renderUserMiniatures(randomPictures), RERENDER_DELAY);
       }
       if (photoSortingButton.id === 'filter-discussed') {
-        removeFilterFromAll();
-        addFilter(photoSortingButton);
-        userData
+        const topMiniatures = userData
+          .slice()
           .sort(sortDataDiscussed);
+        _.debounce(renderUserMiniatures(topMiniatures), RERENDER_DELAY);
       }
     });
   });

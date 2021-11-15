@@ -61,49 +61,49 @@ const filterState = {
   current: 'none',
 };
 
-const filterType = {
+const FilterType = {
   NONE: {
-    name: 'none',
+    NAME: 'none',
   },
   CHROME: {
-    name: 'chrome',
-    effect: 'grayscale',
-    min: 0,
-    max: 1,
-    step: 0.1,
-    start: 1,
+    NAME: 'chrome',
+    EFFECT: 'grayscale',
+    MIN: 0,
+    MAX: 1,
+    STEP: 0.1,
+    START: 1,
   },
   SEPIA: {
-    name: 'sepia',
-    effect: 'sepia',
-    min: 0,
-    max: 1,
-    step: 0.1,
-    start: 1,
+    NAME: 'sepia',
+    EFFECT: 'sepia',
+    MIN: 0,
+    MAX: 1,
+    STEP: 0.1,
+    START: 1,
   },
   MARVIN: {
-    name: 'marvin',
-    effect: 'invert',
-    min: 0,
-    max: 100,
-    step: 1,
-    start: 100,
+    NAME: 'marvin',
+    EFFECT: 'invert',
+    MIN: 0,
+    MAX: 100,
+    STEP: 1,
+    START: 100,
   },
   PHOBOS: {
-    name: 'phobos',
-    effect: 'blur',
-    min: 0,
-    max: 3,
-    step: 0.1,
-    start: 3,
+    NAME: 'phobos',
+    EFFECT: 'blur',
+    MIN: 0,
+    MAX: 3,
+    STEP: 0.1,
+    START: 3,
   },
   HEAT: {
-    name: 'heat',
-    effect: 'brightness',
-    min: 0,
-    max: 3,
-    step: 0.1,
-    start: 3,
+    NAME: 'heat',
+    EFFECT: 'brightness',
+    MIN: 0,
+    MAX: 3,
+    STEP: 0.1,
+    START: 3,
   },
 };
 
@@ -112,34 +112,34 @@ const onEffectsChange = (evt) => {
   uploadPhotoPreview.classList.add(`effects__preview--${evt.target.value}`);
 
   switch (true) {
-    case evt.target.value === filterType.NONE.name:
+    case evt.target.value === FilterType.NONE.NAME:
       uploadPhotoPreview.style.cssText = '';
       addHiddenClass(effectLevel);
       break;
-    case evt.target.value === filterType.CHROME.name:
+    case evt.target.value === FilterType.CHROME.NAME:
       removeHiddenClass(effectLevel);
-      filterState.current = filterType.CHROME.effect;
-      changeSliderOptions(filterType.CHROME.min, filterType.CHROME.max, filterType.CHROME.step, filterType.CHROME.start);
+      filterState.current = FilterType.CHROME.EFFECT;
+      changeSliderOptions(FilterType.CHROME.MIN, FilterType.CHROME.MAX, FilterType.CHROME.STEP, FilterType.CHROME.START);
       break;
-    case evt.target.value === filterType.SEPIA.name:
+    case evt.target.value === FilterType.SEPIA.NAME:
       removeHiddenClass(effectLevel);
-      filterState.current = filterType.SEPIA.effect;
-      changeSliderOptions(filterType.SEPIA.min, filterType.SEPIA.max, filterType.SEPIA.step, filterType.SEPIA.start);
+      filterState.current = FilterType.SEPIA.EFFECT;
+      changeSliderOptions(FilterType.SEPIA.MIN, FilterType.SEPIA.MAX, FilterType.SEPIA.STEP, FilterType.SEPIA.START);
       break;
-    case evt.target.value === filterType.MARVIN.name:
+    case evt.target.value === FilterType.MARVIN.NAME:
       removeHiddenClass(effectLevel);
-      filterState.current = filterType.MARVIN.effect;
-      changeSliderOptions(filterType.MARVIN.min, filterType.MARVIN.max, filterType.MARVIN.step, filterType.MARVIN.start);
+      filterState.current = FilterType.MARVIN.EFFECT;
+      changeSliderOptions(FilterType.MARVIN.MIN, FilterType.MARVIN.MAX, FilterType.MARVIN.STEP, FilterType.MARVIN.START);
       break;
-    case evt.target.value === filterType.PHOBOS.name:
+    case evt.target.value === FilterType.PHOBOS.NAME:
       removeHiddenClass(effectLevel);
-      filterState.current = filterType.PHOBOS.effect;
-      changeSliderOptions(filterType.PHOBOS.min, filterType.PHOBOS.max, filterType.PHOBOS.step, filterType.PHOBOS.start);
+      filterState.current = FilterType.PHOBOS.EFFECT;
+      changeSliderOptions(FilterType.PHOBOS.MIN, FilterType.PHOBOS.MAX, FilterType.PHOBOS.STEP, FilterType.PHOBOS.START);
       break;
-    case evt.target.value === filterType.HEAT.name:
+    case evt.target.value === FilterType.HEAT.NAME:
       removeHiddenClass(effectLevel);
-      filterState.current = filterType.HEAT.effect;
-      changeSliderOptions(filterType.HEAT.min, filterType.HEAT.max, filterType.HEAT.step, filterType.HEAT.start);
+      filterState.current = FilterType.HEAT.EFFECT;
+      changeSliderOptions(FilterType.HEAT.MIN, FilterType.HEAT.MAX, FilterType.HEAT.STEP, FilterType.HEAT.START);
       break;
   }
 };

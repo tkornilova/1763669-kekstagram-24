@@ -64,6 +64,11 @@ uploadPhotoForm.addEventListener('change', () => {
   validationUserComment();
 });
 
+const clearInputs = (inputA, inputB) => {
+  inputA.value = '';
+  inputB.value = '';
+};
+
 uploadPhotoForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
@@ -73,8 +78,6 @@ uploadPhotoForm.addEventListener('submit', (evt) => {
       showSuccessMessage(),
       rescaleUploadPhoto(100, uploadPhotoPreview);
       uploadPhotoPreview.classList.add('effects__preview--none');
-      userHashTag.value = '';
-      userComment.value = '';
     },
     () => {
       addHiddenClass(changePhotoForm);
@@ -82,4 +85,6 @@ uploadPhotoForm.addEventListener('submit', (evt) => {
     },
     new FormData(evt.target),
   );
+
+  clearInputs(userHashTag, userComment);
 });
