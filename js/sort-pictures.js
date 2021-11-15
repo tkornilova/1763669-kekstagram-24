@@ -12,7 +12,7 @@ const RERENDER_DELAY = 500;
 
 photoSorting.classList.remove('img-filters--inactive');
 
-const sortDataDiscussed = (pictureA, pictureB) => pictureA.comments.length < pictureB.comments.length;
+const sortDataDiscussed = (pictureA, pictureB) => pictureB.comments.length - pictureA.comments.length;
 
 const removeFilterFromAll = () => {
   filterButtonDefault.classList.remove('img-filters__button--active');
@@ -28,7 +28,8 @@ getData ((userData) => {
   renderUserMiniatures(userData);
 
   photoSortingButtons.forEach ((photoSortingButton) => {
-    photoSortingButton.addEventListener('click', () => {
+
+    const onFilterClick = _.debounce(() => {
       removeFilterFromAll();
       addFilter(photoSortingButton);
 
@@ -46,6 +47,8 @@ getData ((userData) => {
           .sort(sortDataDiscussed);
         _.debounce(renderUserMiniatures(topMiniatures), RERENDER_DELAY);
       }
-    });
+    }, RERENDER_DELAY);
+
+    photoSortingButton.addEventListener('click', onFilterClick);
   });
 });
