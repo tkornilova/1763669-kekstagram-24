@@ -8,7 +8,8 @@ const uploadPhotoPreview = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
 const effectsSliderContainer = document.querySelector('.effect-level__slider');
 const effectLevel = document.querySelector('.effect-level');
-const SCALE_VALUE_STEP= 25;
+
+const SCALE_VALUE_STEP = 25;
 
 export const rescaleUploadPhoto = (value, el) => {
   el.style.cssText = `transform: scale(${value / 100})`;
@@ -17,8 +18,6 @@ export const rescaleUploadPhoto = (value, el) => {
 buttonScaleSmaller.addEventListener('click', () => {
   if (!(scaleValue.value <= 25)) {
     scaleValue.value = scaleValue.value - SCALE_VALUE_STEP;
-  } else {
-    false;
   }
 
   rescaleUploadPhoto(scaleValue.value, uploadPhotoPreview);
@@ -27,8 +26,6 @@ buttonScaleSmaller.addEventListener('click', () => {
 buttonScaleBigger.addEventListener('click', () => {
   if (!(scaleValue.value >= 100)) {
     scaleValue.value = Number(scaleValue.value) + SCALE_VALUE_STEP;
-  } else {
-    false;
   }
 
   rescaleUploadPhoto(Number(scaleValue.value), uploadPhotoPreview);
@@ -64,39 +61,85 @@ const filterState = {
   current: 'none',
 };
 
+const FilterType = {
+  NONE: {
+    NAME: 'none',
+  },
+  CHROME: {
+    NAME: 'chrome',
+    EFFECT: 'grayscale',
+    MIN: 0,
+    MAX: 1,
+    STEP: 0.1,
+    START: 1,
+  },
+  SEPIA: {
+    NAME: 'sepia',
+    EFFECT: 'sepia',
+    MIN: 0,
+    MAX: 1,
+    STEP: 0.1,
+    START: 1,
+  },
+  MARVIN: {
+    NAME: 'marvin',
+    EFFECT: 'invert',
+    MIN: 0,
+    MAX: 100,
+    STEP: 1,
+    START: 100,
+  },
+  PHOBOS: {
+    NAME: 'phobos',
+    EFFECT: 'blur',
+    MIN: 0,
+    MAX: 3,
+    STEP: 0.1,
+    START: 3,
+  },
+  HEAT: {
+    NAME: 'heat',
+    EFFECT: 'brightness',
+    MIN: 0,
+    MAX: 3,
+    STEP: 0.1,
+    START: 3,
+  },
+};
+
 const onEffectsChange = (evt) => {
   uploadPhotoPreview.className = '';
   uploadPhotoPreview.classList.add(`effects__preview--${evt.target.value}`);
 
   switch (true) {
-    case evt.target.value === 'none':
+    case evt.target.value === FilterType.NONE.NAME:
       uploadPhotoPreview.style.cssText = '';
       addHiddenClass(effectLevel);
       break;
-    case evt.target.value === 'chrome':
+    case evt.target.value === FilterType.CHROME.NAME:
       removeHiddenClass(effectLevel);
-      filterState.current = 'grayscale';
-      changeSliderOptions(0, 1, 0.1, 1);
+      filterState.current = FilterType.CHROME.EFFECT;
+      changeSliderOptions(FilterType.CHROME.MIN, FilterType.CHROME.MAX, FilterType.CHROME.STEP, FilterType.CHROME.START);
       break;
-    case evt.target.value === 'sepia':
+    case evt.target.value === FilterType.SEPIA.NAME:
       removeHiddenClass(effectLevel);
-      filterState.current = 'sepia';
-      changeSliderOptions(0, 1, 0.1, 1);
+      filterState.current = FilterType.SEPIA.EFFECT;
+      changeSliderOptions(FilterType.SEPIA.MIN, FilterType.SEPIA.MAX, FilterType.SEPIA.STEP, FilterType.SEPIA.START);
       break;
-    case evt.target.value === 'marvin':
+    case evt.target.value === FilterType.MARVIN.NAME:
       removeHiddenClass(effectLevel);
-      filterState.current = 'invert';
-      changeSliderOptions(0, 100, 1, 100);
+      filterState.current = FilterType.MARVIN.EFFECT;
+      changeSliderOptions(FilterType.MARVIN.MIN, FilterType.MARVIN.MAX, FilterType.MARVIN.STEP, FilterType.MARVIN.START);
       break;
-    case evt.target.value === 'phobos':
+    case evt.target.value === FilterType.PHOBOS.NAME:
       removeHiddenClass(effectLevel);
-      filterState.current = 'blur';
-      changeSliderOptions(0, 3, 0.1, 3);
+      filterState.current = FilterType.PHOBOS.EFFECT;
+      changeSliderOptions(FilterType.PHOBOS.MIN, FilterType.PHOBOS.MAX, FilterType.PHOBOS.STEP, FilterType.PHOBOS.START);
       break;
-    case evt.target.value === 'heat':
+    case evt.target.value === FilterType.HEAT.NAME:
       removeHiddenClass(effectLevel);
-      filterState.current = 'brightness';
-      changeSliderOptions(0, 3, 0.1, 3);
+      filterState.current = FilterType.HEAT.EFFECT;
+      changeSliderOptions(FilterType.HEAT.MIN, FilterType.HEAT.MAX, FilterType.HEAT.STEP, FilterType.HEAT.START);
       break;
   }
 };

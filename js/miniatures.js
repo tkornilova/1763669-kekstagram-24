@@ -4,11 +4,19 @@ const userMiniatureElement = document.querySelector('.pictures');
 const userMiniatureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const userMiniaturesFragment = document.createDocumentFragment();
 
+const clearMiniatures = () => {
+  const userMiniatureElements = userMiniatureElement.querySelectorAll('.picture');
+
+  userMiniatureElements.forEach((el) => el.remove());
+};
+
 export const renderUserMiniatures = (photoDescriptions) => {
   const onCurrentMiniatureClick = (miniatureId) => {
     const currentMiniature = photoDescriptions.find((miniature) => miniature.id === miniatureId);
     renderFullPicture(currentMiniature);
   };
+
+  clearMiniatures();
 
   photoDescriptions.forEach((miniature) => {
     const miniatureElement = userMiniatureTemplate.cloneNode(true);

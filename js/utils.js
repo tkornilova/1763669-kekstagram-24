@@ -1,3 +1,5 @@
+const body = document.querySelector('body');
+
 // Убрать класс hidden
 export const removeHiddenClass = (el) => {
   el.classList.remove('hidden');
@@ -10,7 +12,6 @@ export const addHiddenClass = (el) => {
 
 // Открыть форму
 export const openForm = (buttonName, formName) => {
-  const body = document.querySelector('body');
   buttonName.addEventListener('click', () => {
     removeHiddenClass(formName);
     body.classList.add('modal-open');
@@ -19,7 +20,6 @@ export const openForm = (buttonName, formName) => {
 
 // Закрыть форму по клику на кнопку-крестик
 export const closeFormWithClick = (buttonName, formName) => {
-  const body = document.querySelector('body');
   buttonName.addEventListener('click', (evt) => {
     evt.preventDefault();
     addHiddenClass(formName);
@@ -29,7 +29,6 @@ export const closeFormWithClick = (buttonName, formName) => {
 
 // Закрыть форму с помощью ESC
 export const closeFormWithEsc = (formName) => {
-  const body = document.querySelector('body');
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
@@ -48,7 +47,6 @@ const closeFormWithClickOut = (formName) => {
 
 export const showSuccessMessage = () => {
   const successTemplate = document.querySelector('#success').content.querySelector('.success');
-  const body = document.querySelector('body');
 
   body.appendChild(successTemplate);
 
@@ -61,7 +59,6 @@ export const showSuccessMessage = () => {
 
 export const showErrorMessage = () => {
   const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-  const body = document.querySelector('body');
 
   body.appendChild(errorTemplate);
 
@@ -70,4 +67,27 @@ export const showErrorMessage = () => {
   closeFormWithEsc(errorMessageCloseButton, errorTemplate);
   closeFormWithClick(errorMessageCloseButton, errorTemplate);
   closeFormWithClickOut(errorTemplate);
+};
+
+export const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = 100;
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = 0;
+  alertContainer.style.top = 0;
+  alertContainer.style.right = 0;
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  const ALERT_SHOW_TIME = 5000;
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
 };

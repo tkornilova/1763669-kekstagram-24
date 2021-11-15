@@ -14,10 +14,11 @@ const changePhotoForm = document.querySelector('.img-upload__overlay');
 const uploadPhotoInput = document.querySelector('#upload-file');
 const uploadButtonClose = document.querySelector('#upload-cancel');
 const uploadPhotoForm = document.querySelector('.img-upload__form');
-const USER_COMMENT_LENGTH = 5;
 const uploadPhotoPreview = document.querySelector('.img-upload__preview img');
 const userHashTag = document.querySelector('.text__hashtags');
 const userComment = document.querySelector('.text__description');
+
+const USER_COMMENT_LENGTH = 5;
 
 openForm(uploadPhotoInput, changePhotoForm);
 
@@ -25,7 +26,7 @@ closeFormWithClick (uploadButtonClose, changePhotoForm);
 
 closeFormWithEsc(changePhotoForm);
 
-const userHashTagValidation = () => {
+const validationUserHashTag = () => {
   const regex = /^#[\w]{1,19}$/;
   const userHashTags = userHashTag.value.split(' ');
 
@@ -33,7 +34,7 @@ const userHashTagValidation = () => {
   const uniqueUserHashTags = _.uniq(userHashTagsLowerCase);
 
   switch (true) {
-    case userHashTagsLowerCase.length > 5:
+    case userHashTagsLowerCase.length > USER_COMMENT_LENGTH:
       userHashTag.setCustomValidity(`Количество хештегов не может быть больше ${  USER_COMMENT_LENGTH  }.`);
       break;
     case !userHashTagsLowerCase.every((value) => value.match(regex)):
@@ -50,7 +51,7 @@ const userHashTagValidation = () => {
   userHashTag.reportValidity();
 };
 
-const userCommentValidation = () => {
+const validationUserComment = () => {
   if (userComment.validity.tooLong) {
     userComment.setCustomValidity('Максимальная длинна комментария 140 символов.');
   }
@@ -59,9 +60,14 @@ const userCommentValidation = () => {
 };
 
 uploadPhotoForm.addEventListener('change', () => {
-  userHashTagValidation();
-  userCommentValidation();
+  validationUserHashTag();
+  validationUserComment();
 });
+
+const clearInputs = (inputA, inputB) => {
+  inputA.value = '';
+  inputB.value = '';
+};
 
 uploadPhotoForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
@@ -72,9 +78,13 @@ uploadPhotoForm.addEventListener('submit', (evt) => {
       showSuccessMessage(),
       rescaleUploadPhoto(100, uploadPhotoPreview);
       uploadPhotoPreview.classList.add('effects__preview--none');
-      userHashTag.value = '';
-      userComment.value = '';},
-    () => showErrorMessage(),
+    },
+    () => {
+      addHiddenClass(changePhotoForm);
+      showErrorMessage();
+    },
     new FormData(evt.target),
   );
+
+  clearInputs(userHashTag, userComment);
 });
