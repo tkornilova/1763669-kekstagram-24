@@ -10,6 +10,7 @@ const uploadPhotoPreview = document.querySelector('.img-upload__preview img');
 const userHashTag = document.querySelector('.text__hashtags');
 const userComment = document.querySelector('.text__description');
 const effectLevel = document.querySelector('.effect-level');
+const effectNone = document.querySelector('#effect-none');
 const body = document.querySelector('body');
 
 const USER_COMMENT_LENGTH = 5;
@@ -30,6 +31,7 @@ const closeForm = (evt) => {
   addHiddenClass(changePhotoForm);
   clearInputs(userHashTag, userComment);
   body.classList.remove('modal-open');
+  effectNone.checked = true;
 };
 
 const ifFocus = 'userHashTag.hasFocus() || userComment.hasFocus()';
