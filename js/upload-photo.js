@@ -1,11 +1,4 @@
-import {
-  openForm,
-  closeFormWithClick,
-  showSuccessMessage,
-  showErrorMessage,
-  addHiddenClass
-} from './utils.js';
-
+import { openForm, showSuccessMessage, showErrorMessage, addHiddenClass } from './utils.js';
 import { sendData } from './api.js';
 import { rescaleUploadPhoto } from './photo-editor.js';
 
@@ -16,6 +9,7 @@ const uploadPhotoForm = document.querySelector('.img-upload__form');
 const uploadPhotoPreview = document.querySelector('.img-upload__preview img');
 const userHashTag = document.querySelector('.text__hashtags');
 const userComment = document.querySelector('.text__description');
+const effectLevel = document.querySelector('.effect-level');
 const body = document.querySelector('body');
 
 const USER_COMMENT_LENGTH = 5;
@@ -27,16 +21,26 @@ const clearInputs = (inputA, inputB) => {
 
 openForm(uploadPhotoInput, changePhotoForm);
 
-closeFormWithClick (uploadButtonClose, changePhotoForm);
+const closeForm = (evt) => {
+  evt.preventDefault();
+  uploadPhotoPreview.className = '';
+  uploadPhotoPreview.classList.add('effects__preview--none');
+  uploadPhotoPreview.style.cssText = '';
+  addHiddenClass(effectLevel);
+  addHiddenClass(changePhotoForm);
+  clearInputs(userHashTag, userComment);
+  body.classList.remove('modal-open');
+};
 
 const ifFocus = 'userHashTag.hasFocus() || userComment.hasFocus()';
 
+uploadButtonClose.addEventListener('click', (evt) => {
+  closeForm(evt);
+});
+
 document.addEventListener('keydown', (evt) => {
   if (evt.key === 'Escape' && !ifFocus) {
-    evt.preventDefault();
-    addHiddenClass(changePhotoForm);
-    body.classList.remove('modal-open');
-    clearInputs(userHashTag, userComment);
+    closeForm(evt);
   }
 });
 
