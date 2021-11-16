@@ -87,17 +87,14 @@ uploadPhotoForm.addEventListener('submit', (evt) => {
 
   sendData(
     () => {
-      addHiddenClass(changePhotoForm);
       showSuccessMessage(),
       rescaleUploadPhoto(100, uploadPhotoPreview);
-      uploadPhotoPreview.classList.add('effects__preview--none');
     },
     () => {
-      addHiddenClass(changePhotoForm);
       showErrorMessage();
     },
     new FormData(evt.target),
   );
 
-  clearInputs(userHashTag, userComment);
+  closeForm(evt);
 });
