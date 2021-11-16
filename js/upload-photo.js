@@ -1,7 +1,6 @@
 import {
   openForm,
   closeFormWithClick,
-  closeFormWithEsc,
   showSuccessMessage,
   showErrorMessage,
   addHiddenClass
@@ -17,14 +16,29 @@ const uploadPhotoForm = document.querySelector('.img-upload__form');
 const uploadPhotoPreview = document.querySelector('.img-upload__preview img');
 const userHashTag = document.querySelector('.text__hashtags');
 const userComment = document.querySelector('.text__description');
+const body = document.querySelector('body');
 
 const USER_COMMENT_LENGTH = 5;
+
+const clearInputs = (inputA, inputB) => {
+  inputA.value = '';
+  inputB.value = '';
+};
 
 openForm(uploadPhotoInput, changePhotoForm);
 
 closeFormWithClick (uploadButtonClose, changePhotoForm);
 
-closeFormWithEsc(changePhotoForm);
+const ifFocus = 'userHashTag.hasFocus() || userComment.hasFocus()';
+
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape' && !ifFocus) {
+    evt.preventDefault();
+    addHiddenClass(changePhotoForm);
+    body.classList.remove('modal-open');
+    clearInputs(userHashTag, userComment);
+  }
+});
 
 const validationUserHashTag = () => {
   const regex = /^#[\w]{1,19}$/;
@@ -63,11 +77,6 @@ uploadPhotoForm.addEventListener('change', () => {
   validationUserHashTag();
   validationUserComment();
 });
-
-const clearInputs = (inputA, inputB) => {
-  inputA.value = '';
-  inputB.value = '';
-};
 
 uploadPhotoForm.addEventListener('submit', (evt) => {
   evt.preventDefault();

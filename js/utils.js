@@ -1,16 +1,13 @@
 const body = document.querySelector('body');
 
-// Убрать класс hidden
 export const removeHiddenClass = (el) => {
   el.classList.remove('hidden');
 };
 
-// Добавить класс hidden
 export const addHiddenClass = (el) => {
   el.classList.add('hidden');
 };
 
-// Открыть форму
 export const openForm = (buttonName, formName) => {
   buttonName.addEventListener('click', () => {
     removeHiddenClass(formName);
@@ -18,7 +15,6 @@ export const openForm = (buttonName, formName) => {
   });
 };
 
-// Закрыть форму по клику на кнопку-крестик
 export const closeFormWithClick = (buttonName, formName) => {
   buttonName.addEventListener('click', (evt) => {
     evt.preventDefault();
@@ -27,7 +23,6 @@ export const closeFormWithClick = (buttonName, formName) => {
   });
 };
 
-// Закрыть форму с помощью ESC
 export const closeFormWithEsc = (formName) => {
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
@@ -38,7 +33,6 @@ export const closeFormWithEsc = (formName) => {
   });
 };
 
-// Закрыть форму по клику за пределы формы
 const closeFormWithClickOut = (formName) => {
   document.addEventListener('click', () => {
     addHiddenClass(formName);
