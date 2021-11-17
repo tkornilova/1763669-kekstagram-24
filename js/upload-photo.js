@@ -2,6 +2,8 @@ import { openForm, showSuccessMessage, showErrorMessage, addHiddenClass } from '
 import { sendData } from './api.js';
 import { rescaleUploadPhoto } from './photo-editor.js';
 
+const USER_COMMENT_LENGTH = 5;
+
 const changePhotoForm = document.querySelector('.img-upload__overlay');
 const uploadPhotoInput = document.querySelector('#upload-file');
 const uploadButtonClose = document.querySelector('#upload-cancel');
@@ -12,8 +14,6 @@ const userComment = document.querySelector('.text__description');
 const effectLevel = document.querySelector('.effect-level');
 const effectNone = document.querySelector('#effect-none');
 const body = document.querySelector('body');
-
-const USER_COMMENT_LENGTH = 5;
 
 const clearInputs = (inputA, inputB) => {
   inputA.value = '';

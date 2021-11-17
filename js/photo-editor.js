@@ -1,6 +1,8 @@
 import './../nouislider/nouislider.js';
 import { addHiddenClass, removeHiddenClass } from './utils.js';
 
+const SCALE_VALUE_STEP = 25;
+
 const buttonScaleSmaller = document.querySelector('.scale__control--smaller');
 const buttonScaleBigger = document.querySelector('.scale__control--bigger');
 const scaleValue = document.querySelector('.scale__control--value');
@@ -8,8 +10,6 @@ const uploadPhotoPreview = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
 const effectsSliderContainer = document.querySelector('.effect-level__slider');
 const effectLevel = document.querySelector('.effect-level');
-
-const SCALE_VALUE_STEP = 25;
 
 export const rescaleUploadPhoto = (value, el) => {
   el.style.cssText = `transform: scale(${value / 100})`;

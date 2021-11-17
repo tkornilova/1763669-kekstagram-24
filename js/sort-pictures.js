@@ -1,14 +1,14 @@
 import { renderUserMiniatures } from './miniatures.js';
 import { getData } from './api.js';
 
+const RANDOM_PICTURES_NUMBER = 10;
+const RERENDER_DELAY = 500;
+
 const photoSorting = document.querySelector('.img-filters');
 const photoSortingButtons = document.querySelectorAll('.img-filters__button');
 const filterButtonDefault = document.querySelector('#filter-default');
 const filterButtonRandom = document.querySelector('#filter-random');
 const filterButtonDiscussed = document.querySelector('#filter-discussed');
-
-const RANDOM_PICTURES_NUMBER = 10;
-const RERENDER_DELAY = 500;
 
 photoSorting.classList.remove('img-filters--inactive');
 
