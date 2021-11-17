@@ -32,9 +32,7 @@ const closeForm = (evt) => {
   effectNone.checked = true;
 };
 
-const ifFocus = () => {
-  userHashTag.hasFocus() || userComment.hasFocus();
-};
+const ifFocus = 'userHashTag.hasFocus() || userComment.hasFocus()';
 
 uploadButtonClose.addEventListener('click', (evt) => {
   closeForm(evt);

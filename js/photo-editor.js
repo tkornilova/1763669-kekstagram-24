@@ -19,9 +19,9 @@ export const rescaleUploadPhoto = (value, el) => {
 let valueScale = 100;
 
 buttonScaleSmaller.addEventListener('click', () => {
-  valueScale = Number(scaleValue.value.split(' ', 1));
   if (!(valueScale <= 25)) {
     scaleValue.value = `${valueScale - SCALE_VALUE_STEP} %`;
+    valueScale = Number(scaleValue.value.split(' ', 1));
   }
 
   rescaleUploadPhoto(valueScale, uploadPhotoPreview);
@@ -29,8 +29,8 @@ buttonScaleSmaller.addEventListener('click', () => {
 
 buttonScaleBigger.addEventListener('click', () => {
   if (!(valueScale >= 100)) {
-    valueScale = Number(scaleValue.value.split(' ', 1));
     scaleValue.value = `${valueScale + SCALE_VALUE_STEP} %`;
+    valueScale = Number(scaleValue.value.split(' ', 1));
   }
 
   rescaleUploadPhoto(valueScale, uploadPhotoPreview);
