@@ -11,24 +11,29 @@ const effectsList = document.querySelector('.effects__list');
 const effectsSliderContainer = document.querySelector('.effect-level__slider');
 const effectLevel = document.querySelector('.effect-level');
 
+
 export const rescaleUploadPhoto = (value, el) => {
   el.style.cssText = `transform: scale(${value / 100})`;
 };
 
+let valueScale = 100;
+
 buttonScaleSmaller.addEventListener('click', () => {
-  if (!(scaleValue.value <= 25)) {
-    scaleValue.value = scaleValue.value - SCALE_VALUE_STEP;
+  valueScale = Number(scaleValue.value.split(' ', 1));
+  if (!(valueScale <= 25)) {
+    scaleValue.value = `${valueScale - SCALE_VALUE_STEP} %`;
   }
 
-  rescaleUploadPhoto(scaleValue.value, uploadPhotoPreview);
+  rescaleUploadPhoto(valueScale, uploadPhotoPreview);
 });
 
 buttonScaleBigger.addEventListener('click', () => {
-  if (!(scaleValue.value >= 100)) {
-    scaleValue.value = Number(scaleValue.value) + SCALE_VALUE_STEP;
+  if (!(valueScale >= 100)) {
+    valueScale = Number(scaleValue.value.split(' ', 1));
+    scaleValue.value = `${valueScale + SCALE_VALUE_STEP} %`;
   }
 
-  rescaleUploadPhoto(Number(scaleValue.value), uploadPhotoPreview);
+  rescaleUploadPhoto(valueScale, uploadPhotoPreview);
 });
 
 const createSlider = () => {
