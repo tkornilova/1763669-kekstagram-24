@@ -1,7 +1,10 @@
+import { removeHiddenClass } from './utils.js';
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const fileChooser = document.querySelector('#upload-file');
 const uploadPhotoPreview = document.querySelector('.img-upload__preview img');
+const body = document.querySelector('body');
+const changePhotoForm = document.querySelector('.img-upload__overlay');
 
 fileChooser.addEventListener('change', () => {
   const file = fileChooser.files[0];
@@ -11,5 +14,7 @@ fileChooser.addEventListener('change', () => {
 
   if (matches) {
     uploadPhotoPreview.src = URL.createObjectURL(file);
+    removeHiddenClass(changePhotoForm);
+    body.classList.add('modal-open');
   }
 });

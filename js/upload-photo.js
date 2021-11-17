@@ -1,11 +1,10 @@
-import { openForm, showSuccessMessage, showErrorMessage, addHiddenClass } from './utils.js';
+import { showSuccessMessage, showErrorMessage, addHiddenClass } from './utils.js';
 import { sendData } from './api.js';
 import { rescaleUploadPhoto } from './photo-editor.js';
 
 const USER_COMMENT_LENGTH = 5;
 
 const changePhotoForm = document.querySelector('.img-upload__overlay');
-const uploadPhotoInput = document.querySelector('#upload-file');
 const uploadButtonClose = document.querySelector('#upload-cancel');
 const uploadPhotoForm = document.querySelector('.img-upload__form');
 const uploadPhotoPreview = document.querySelector('.img-upload__preview img');
@@ -20,7 +19,6 @@ const clearInputs = (inputA, inputB) => {
   inputB.value = '';
 };
 
-openForm(uploadPhotoInput, changePhotoForm);
 
 const closeForm = (evt) => {
   evt.preventDefault();
@@ -34,7 +32,9 @@ const closeForm = (evt) => {
   effectNone.checked = true;
 };
 
-const ifFocus = 'userHashTag.hasFocus() || userComment.hasFocus()';
+const ifFocus = () => {
+  userHashTag.hasFocus() || userComment.hasFocus();
+};
 
 uploadButtonClose.addEventListener('click', (evt) => {
   closeForm(evt);
@@ -46,7 +46,7 @@ document.addEventListener('keydown', (evt) => {
   }
 });
 
-const validationUserHashTag = () => {
+export const validationUserHashTag = () => {
   const regex = /^#[\w]{1,19}$/;
   const userHashTags = userHashTag.value.split(' ');
 
@@ -71,7 +71,7 @@ const validationUserHashTag = () => {
   userHashTag.reportValidity();
 };
 
-const validationUserComment = () => {
+export const validationUserComment = () => {
   if (userComment.validity.tooLong) {
     userComment.setCustomValidity('Максимальная длинна комментария 140 символов.');
   }
