@@ -32,14 +32,14 @@ const closeForm = (evt) => {
   effectNone.checked = true;
 };
 
-const ifFocus = 'userHashTag.hasFocus() || userComment.hasFocus()';
+const ifFocus = 'userHashTag.focus() || userComment.focus()';
 
 uploadButtonClose.addEventListener('click', (evt) => {
   closeForm(evt);
 });
 
 document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape' && !ifFocus) {
+  if (evt.key === 'Escape' && !(ifFocus)) {
     closeForm(evt);
   }
 });
@@ -52,10 +52,13 @@ export const validationUserHashTag = () => {
   const uniqueUserHashTags = _.uniq(userHashTagsLowerCase);
 
   switch (true) {
+    case (userHashTag.value === ''):
+      userHashTag.setCustomValidity('');
+      break;
     case userHashTagsLowerCase.length > USER_COMMENT_LENGTH:
       userHashTag.setCustomValidity(`Количество хештегов не может быть больше ${  USER_COMMENT_LENGTH  }.`);
       break;
-    case !userHashTagsLowerCase.every((value) => value.match(regex)):
+    case (!userHashTagsLowerCase.every((value) => value.match(regex)) || !userHashTagsLowerCase.textContent === ''):
       userHashTag.setCustomValidity('Хештег должен начинаться с #. Минимальная длина хештега - 2, максимальная - 20. Хештег не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи');
       break;
     case (!(userHashTagsLowerCase.length === uniqueUserHashTags.length)):
@@ -80,6 +83,7 @@ export const validationUserComment = () => {
 uploadPhotoForm.addEventListener('change', () => {
   validationUserHashTag();
   validationUserComment();
+
 });
 
 uploadPhotoForm.addEventListener('submit', (evt) => {
