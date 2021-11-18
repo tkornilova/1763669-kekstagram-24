@@ -1,22 +1,22 @@
-import { renderFullPicture } from './full-picture.js';
+import { renderFullPictureForm } from './full-picture.js';
 
 const userMiniatureElement = document.querySelector('.pictures');
 const userMiniatureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const userMiniaturesFragment = document.createDocumentFragment();
 
-const clearMiniatures = () => {
+const clearUseriniatures = () => {
   const userMiniatureElements = userMiniatureElement.querySelectorAll('.picture');
 
   userMiniatureElements.forEach((el) => el.remove());
 };
 
-export const renderUserMiniatures = (photoDescriptions) => {
+export const renderMiniatures = (photoDescriptions) => {
   const onCurrentMiniatureClick = (miniatureId) => {
     const currentMiniature = photoDescriptions.find((miniature) => miniature.id === miniatureId);
-    renderFullPicture(currentMiniature);
+    renderFullPictureForm(currentMiniature);
   };
 
-  clearMiniatures();
+  clearUseriniatures();
 
   photoDescriptions.forEach((miniature) => {
     const miniatureElement = userMiniatureTemplate.cloneNode(true);
