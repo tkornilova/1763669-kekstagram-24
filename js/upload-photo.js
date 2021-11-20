@@ -19,7 +19,6 @@ const clearInputs = (inputA, inputB) => {
   inputB.value = '';
 };
 
-
 const closeForm = (evt) => {
   evt.preventDefault();
   uploadPhotoPreview.className = '';
@@ -32,14 +31,15 @@ const closeForm = (evt) => {
   effectNone.checked = true;
 };
 
-const ifFocus = 'userHashTag.focus() || userComment.focus()';
-
 uploadButtonClose.addEventListener('click', (evt) => {
   closeForm(evt);
 });
 
 document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape' && !(ifFocus)) {
+  const activeElement = document.activeElement;
+  const ifHashTagOrCommentInFocus = (activeElement === userHashTag) || (activeElement === userComment);
+
+  if (evt.key === 'Escape' && !ifHashTagOrCommentInFocus) {
     closeForm(evt);
   }
 });
