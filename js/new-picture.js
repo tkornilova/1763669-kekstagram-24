@@ -8,6 +8,9 @@ const changePhotoForm = document.querySelector('.img-upload__overlay');
 
 fileChooser.addEventListener('change', () => {
   const file = fileChooser.files[0];
+  if (!file) {
+    return;
+  }
   const fileName = file.name.toLowerCase();
 
   const matches = FILE_TYPES.some((type) => fileName.endsWith(type));

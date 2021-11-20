@@ -48,7 +48,7 @@ export const validationUserHashTag = () => {
   const regex = /^#[\w]{1,19}$/;
   const userHashTags = userHashTag.value.split(' ');
 
-  const userHashTagsLowerCase = userHashTags.map((value) => value.toLowerCase());
+  const userHashTagsLowerCase = userHashTags.map((value) => value.toLowerCase()).filter((el) => el !== '');
   const uniqueUserHashTags = _.uniq(userHashTagsLowerCase);
 
   switch (true) {

@@ -46,7 +46,7 @@ export const showSuccessMessage = () => {
 
   const successMessageCloseButton = document.querySelector('.success__button');
 
-  closeFormWithEsc(successMessageCloseButton, successTemplate);
+  closeFormWithEsc(successTemplate);
   closeFormWithClick(successMessageCloseButton, successTemplate);
   closeFormWithClickOut(successTemplate);
 };
@@ -58,7 +58,7 @@ export const showErrorMessage = () => {
 
   const errorMessageCloseButton = document.querySelector('.error__button');
 
-  closeFormWithEsc(errorMessageCloseButton, errorTemplate);
+  closeFormWithEsc(errorTemplate);
   closeFormWithClick(errorMessageCloseButton, errorTemplate);
   closeFormWithClickOut(errorTemplate);
 };
