@@ -1,14 +1,14 @@
-import { renderUserMiniatures } from './miniatures.js';
+import { renderMiniatures } from './miniatures.js';
 import { getData } from './api.js';
+
+const RANDOM_PICTURES_NUMBER = 10;
+const RERENDER_DELAY = 500;
 
 const photoSorting = document.querySelector('.img-filters');
 const photoSortingButtons = document.querySelectorAll('.img-filters__button');
 const filterButtonDefault = document.querySelector('#filter-default');
 const filterButtonRandom = document.querySelector('#filter-random');
 const filterButtonDiscussed = document.querySelector('#filter-discussed');
-
-const RANDOM_PICTURES_NUMBER = 10;
-const RERENDER_DELAY = 500;
 
 photoSorting.classList.remove('img-filters--inactive');
 
@@ -25,7 +25,7 @@ const addFilter = (buttonName) => {
 };
 
 getData ((userData) => {
-  renderUserMiniatures(userData);
+  renderMiniatures(userData);
 
   photoSortingButtons.forEach ((photoSortingButton) => {
 
@@ -34,18 +34,18 @@ getData ((userData) => {
       addFilter(photoSortingButton);
 
       if (photoSortingButton.id === 'filter-default') {
-        renderUserMiniatures(userData);
+        renderMiniatures(userData);
       }
       if (photoSortingButton.id === 'filter-random') {
         const randomPictures = _.uniqBy(userData, 'url')
           .slice(0, RANDOM_PICTURES_NUMBER);
-        renderUserMiniatures(randomPictures);
+        renderMiniatures(randomPictures);
       }
       if (photoSortingButton.id === 'filter-discussed') {
         const topMiniatures = userData
           .slice()
           .sort(sortDataDiscussed);
-        renderUserMiniatures(topMiniatures);
+        renderMiniatures(topMiniatures);
       }
     }, RERENDER_DELAY);
 

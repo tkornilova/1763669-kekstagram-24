@@ -1,6 +1,8 @@
 import './../nouislider/nouislider.js';
 import { addHiddenClass, removeHiddenClass } from './utils.js';
 
+const SCALE_VALUE_STEP = 25;
+
 const buttonScaleSmaller = document.querySelector('.scale__control--smaller');
 const buttonScaleBigger = document.querySelector('.scale__control--bigger');
 const scaleValue = document.querySelector('.scale__control--value');
@@ -9,26 +11,29 @@ const effectsList = document.querySelector('.effects__list');
 const effectsSliderContainer = document.querySelector('.effect-level__slider');
 const effectLevel = document.querySelector('.effect-level');
 
-const SCALE_VALUE_STEP = 25;
 
 export const rescaleUploadPhoto = (value, el) => {
   el.style.cssText = `transform: scale(${value / 100})`;
 };
 
+let valueScale = 100;
+
 buttonScaleSmaller.addEventListener('click', () => {
-  if (!(scaleValue.value <= 25)) {
-    scaleValue.value = scaleValue.value - SCALE_VALUE_STEP;
+  if (!(valueScale <= 25)) {
+    scaleValue.value = `${valueScale - SCALE_VALUE_STEP} %`;
+    valueScale = Number(scaleValue.value.split(' ', 1));
   }
 
-  rescaleUploadPhoto(scaleValue.value, uploadPhotoPreview);
+  rescaleUploadPhoto(valueScale, uploadPhotoPreview);
 });
 
 buttonScaleBigger.addEventListener('click', () => {
-  if (!(scaleValue.value >= 100)) {
-    scaleValue.value = Number(scaleValue.value) + SCALE_VALUE_STEP;
+  if (!(valueScale >= 100)) {
+    scaleValue.value = `${valueScale + SCALE_VALUE_STEP} %`;
+    valueScale = Number(scaleValue.value.split(' ', 1));
   }
 
-  rescaleUploadPhoto(Number(scaleValue.value), uploadPhotoPreview);
+  rescaleUploadPhoto(valueScale, uploadPhotoPreview);
 });
 
 const createSlider = () => {

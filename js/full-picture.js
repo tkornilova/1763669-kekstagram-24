@@ -7,7 +7,7 @@ const commentCounter = document.querySelector('.social__comment-count');
 const body = document.querySelector('body');
 const buttonClose = document.querySelector('.big-picture__cancel');
 
-const closeFullPicture = () => {
+const closeForm = () => {
   addHiddenClass(fullPicture);
   body.classList.remove('modal-open');
   userCommentsList.innerHTML = '';
@@ -16,13 +16,13 @@ const closeFullPicture = () => {
 
 buttonClose.addEventListener('click', (evt) => {
   evt.preventDefault();
-  closeFullPicture();
+  closeForm();
 });
 
 document.addEventListener('keydown', (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
-    closeFullPicture();
+    closeForm();
   }
 });
 
@@ -65,7 +65,7 @@ const showComments = (commentsArray) => {
 
 };
 
-export const renderFullPicture = (picture) => {
+export const renderFullPictureForm = (picture) => {
   fullPicture.querySelector('.big-picture__img img').src = picture.url;
   fullPicture.querySelector('.likes-count').textContent = picture.likes;
   fullPicture.querySelector('.comments-count').textContent = picture.comments.length;
