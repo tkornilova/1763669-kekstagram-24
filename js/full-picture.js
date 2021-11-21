@@ -12,6 +12,7 @@ const closeForm = () => {
   body.classList.remove('modal-open');
   userCommentsList.innerHTML = '';
   addHiddenClass(commentLoader);
+  document.removeEventListener('keydown', onKeydownEsc);
 };
 
 buttonClose.addEventListener('click', (evt) => {
@@ -19,12 +20,12 @@ buttonClose.addEventListener('click', (evt) => {
   closeForm();
 });
 
-document.addEventListener('keydown', (evt) => {
+function onKeydownEsc(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     closeForm();
   }
-});
+}
 
 const addComment = (comments) => {
   const userCommentsTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
@@ -79,4 +80,5 @@ export const renderFullPictureForm = (picture) => {
   }
 
   removeHiddenClass(fullPicture);
+  document.addEventListener('keydown', onKeydownEsc);
 };
