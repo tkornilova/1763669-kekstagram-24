@@ -1,10 +1,9 @@
-import { showSuccessMessage, showErrorMessage, addHiddenClass, removeHiddenClass } from './utils.js';
+import { showMessage, addHiddenClass, removeHiddenClass } from './utils.js';
 import { sendData } from './api.js';
 import { rescaleUploadPhoto } from './photo-editor.js';
 
 const USER_COMMENT_LENGTH = 5;
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
-
 
 const fileChooser = document.querySelector('#upload-file');
 const uploadPhotoPreview = document.querySelector('.img-upload__preview img');
@@ -22,8 +21,7 @@ const clearInputs = (inputA, inputB) => {
   inputB.value = '';
 };
 
-const closeForm = (evt) => {
-  evt.preventDefault();
+const closeForm = () => {
   uploadPhotoPreview.className = '';
   uploadPhotoPreview.classList.add('effects__preview--none');
   uploadPhotoPreview.style.cssText = '';
@@ -32,7 +30,8 @@ const closeForm = (evt) => {
   clearInputs(userHashTag, userComment);
   body.classList.remove('modal-open');
   effectNone.checked = true;
-  document.removeEventListener('keydown', onKeydownEsc);
+  fileChooser.value = '';
+  document.removeEventListener('keydown', onEscKeydown);
 };
 
 uploadButtonClose.addEventListener('click', (evt) => {
@@ -51,12 +50,13 @@ fileChooser.addEventListener('change', () => {
   if (matches) {
     uploadPhotoPreview.src = URL.createObjectURL(file);
     removeHiddenClass(changePhotoForm);
-    document.addEventListener('keydown', onKeydownEsc);
+    document.addEventListener('keydown', onEscKeydown);
     body.classList.add('modal-open');
   }
 });
 
-function onKeydownEsc(evt) {
+// FD для своевременного добавления/удаления обработчиков из-за правила еслинта no-use-before-define
+function onEscKeydown(evt) {
   const activeElement = document.activeElement;
   const ifHashTagOrCommentInFocus = (activeElement === userHashTag) || (activeElement === userComment);
 
@@ -112,13 +112,13 @@ uploadPhotoForm.addEventListener('submit', (evt) => {
 
   sendData(
     () => {
-      closeForm(evt);
-      showSuccessMessage(),
+      closeForm();
+      showMessage('success'),
       rescaleUploadPhoto(100, uploadPhotoPreview);
     },
     () => {
-      closeForm(evt);
-      showErrorMessage();
+      closeForm();
+      showMessage('error');
     },
     new FormData(evt.target),
   );

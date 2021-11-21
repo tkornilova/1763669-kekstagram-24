@@ -29,4 +29,3 @@ export const renderMiniatures = (photoDescriptions) => {
 
   userMiniatureElement.appendChild(userMiniaturesFragment);
 };
-
