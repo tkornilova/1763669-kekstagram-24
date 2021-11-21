@@ -12,7 +12,7 @@ const closeForm = () => {
   body.classList.remove('modal-open');
   userCommentsList.innerHTML = '';
   addHiddenClass(commentLoader);
-  document.removeEventListener('keydown', onKeydownEsc);
+  document.removeEventListener('keydown', onEscKeydown);
 };
 
 buttonClose.addEventListener('click', (evt) => {
@@ -20,7 +20,7 @@ buttonClose.addEventListener('click', (evt) => {
   closeForm();
 });
 
-function onKeydownEsc(evt) {
+function onEscKeydown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     closeForm();
@@ -80,5 +80,5 @@ export const renderFullPictureForm = (picture) => {
   }
 
   removeHiddenClass(fullPicture);
-  document.addEventListener('keydown', onKeydownEsc);
+  document.addEventListener('keydown', onEscKeydown);
 };

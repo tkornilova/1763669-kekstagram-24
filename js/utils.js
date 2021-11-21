@@ -8,59 +8,65 @@ export const addHiddenClass = (el) => {
   el.classList.add('hidden');
 };
 
-export const openForm = (buttonName, formName) => {
-  buttonName.addEventListener('click', () => {
-    removeHiddenClass(formName);
-    body.classList.add('modal-open');
-  });
-};
+export const showMessage = (type) => {
+  let messageTemplate;
+  let closeButton;
 
-export const closeFormWithClick = (buttonName, formName) => {
-  buttonName.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    addHiddenClass(formName);
+  if (type === 'success') {
+    messageTemplate = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+  } else if (type === 'error') {
+    messageTemplate = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+  } else {
+    return;
+  }
+
+  body.appendChild(messageTemplate);
+
+  if (type === 'success') {
+    closeButton = document.querySelector('.success__button');
+  } else if (type === 'error') {
+    closeButton = document.querySelector('.error__button');
+  } else {
+    return;
+  }
+
+  const removePopup = () => {
+    messageTemplate.remove();
     body.classList.remove('modal-open');
-  });
-};
+  };
 
-export const closeFormWithEsc = (formName) => {
-  document.addEventListener('keydown', (evt) => {
+  // FD для своевременного добавления/удаления обработчиков из-за правила еслинта no-use-before-define
+  function onEscKeydown(evt) {
     if (evt.key === 'Escape') {
       evt.preventDefault();
-      addHiddenClass(formName);
-      body.classList.remove('modal-open');
+      removePopup();
+
+      document.removeEventListener('keydown', onEscKeydown);
+      closeButton.removeEventListener('click', onButtonClick);
+      document.removeEventListener('click', onDocumentClick);
     }
-  });
-};
+  }
 
-const closeFormWithClickOut = (formName) => {
-  document.addEventListener('click', () => {
-    addHiddenClass(formName);
-  });
-};
+  function onButtonClick(evt) {
+    evt.preventDefault();
+    removePopup();
 
-export const showSuccessMessage = () => {
-  const successTemplate = document.querySelector('#success').content.querySelector('.success');
+    document.removeEventListener('keydown', onEscKeydown);
+    closeButton.removeEventListener('click', onButtonClick);
+    document.removeEventListener('click', onDocumentClick);
+  }
 
-  body.appendChild(successTemplate);
+  function onDocumentClick ()  {
+    removePopup();
 
-  const successMessageCloseButton = document.querySelector('.success__button');
+    document.removeEventListener('keydown', onEscKeydown);
+    closeButton.removeEventListener('click', onButtonClick);
+    document.removeEventListener('click', onDocumentClick);
+  }
 
-  closeFormWithEsc(successTemplate);
-  closeFormWithClick(successMessageCloseButton, successTemplate);
-  closeFormWithClickOut(successTemplate);
-};
-
-export const showErrorMessage = () => {
-  const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-
-  body.appendChild(errorTemplate);
-
-  const errorMessageCloseButton = document.querySelector('.error__button');
-
-  closeFormWithEsc(errorTemplate);
-  closeFormWithClick(errorMessageCloseButton, errorTemplate);
-  closeFormWithClickOut(errorTemplate);
+  document.addEventListener('click', onDocumentClick);
+  document.addEventListener('keydown', onEscKeydown);
+  closeButton.addEventListener('click', onButtonClick);
 };
 
 export const showAlert = (message) => {
@@ -85,3 +91,4 @@ export const showAlert = (message) => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
 };
+
